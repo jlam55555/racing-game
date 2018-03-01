@@ -1,0 +1,18 @@
+{
+  "name": "racing-game",
+  "description": "Multiplayer racing game for AP CSP Create task",
+  "contributors": [
+    "Jonathan Lam <jonathan.lam@er9.org> (http://jonathanlam.tech)",
+    "Rahul Kiefer <rahul.kiefer@er9.org>"
+  ],
+  "version": "0.0.1",
+  "keywords": "multiplayer, racing, game, CSP, computer science principles, jonathan lam, rahul kiefer",
+  "dependencies": {
+    "express": "4.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/jlam55555/racing-game.git"
+  },
+  "license": "MIT"
+}
