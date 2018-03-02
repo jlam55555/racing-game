@@ -19,12 +19,22 @@ var material = new THREE.MeshBasicMaterial( {color: 0xCC0000 } );
 var cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+
+//animating cube
 camera.position.z = 10;
 
 function animate() {
 	requestAnimationFrame( animate );
-  cube.rotation.x += .01;
-  cube.position.z -= .01;
+  cube.rotation.x -= .01;
+  //cube.position.z -= .01;
 	renderer.render( scene, camera );
 }
 animate();
+
+//light
+Light(0xffffff, 1);
+
+//creating pointlight
+var light = new THREE.PointLight( 0xff0000, 1, 100 );
+light.position.set( 10, 10, 10);
+scene.add( light );
