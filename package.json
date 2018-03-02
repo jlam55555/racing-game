@@ -9,6 +9,8 @@
   "keywords": "multiplayer, racing, game, CSP, computer science principles, jonathan lam, rahul kiefer",
   "dependencies": {
     "express": "4.16.0",
+    "express-session": "^1.15.6",
+    "express-socket.io-session": "^1.3.2",
     "socket.io": "^2.0.4"
   },
   "repository": {
