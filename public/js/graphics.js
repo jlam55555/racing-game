@@ -15,8 +15,16 @@ document.body.appendChild(renderer.domElement);
 
 //creating cube
 var geometry = new THREE.BoxGeometry(5,5,5);
-var material = new THREE.MeshBasicMaterial( {color: 0x00ff00 } );
+var material = new THREE.MeshBasicMaterial( {color: 0xCC0000 } );
 var cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-camera.position.z = 5;
+camera.position.z = 10;
+
+function animate() {
+	requestAnimationFrame( animate );
+  cube.rotation.x += .01;
+  cube.position.z -= .01;
+	renderer.render( scene, camera );
+}
+animate();
