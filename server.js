@@ -33,7 +33,7 @@ io.on('connection', socket => {
 
   // handle when a person disconnects
   socket.on('disconnect', () => {
-    console.log(`A user with socket id ${socket.id} has disconnected.);
+    console.log(`A user with socket id ${socket.id} has disconnected.`);
   });
 
 });
