@@ -32,7 +32,7 @@ function animate() {
 animate();
 
 //light
-Light(0xffffff, 1);
+//Light(0xffffff, 1);
 
 //creating pointlight
 var light = new THREE.PointLight( 0xff0000, 1, 100 );

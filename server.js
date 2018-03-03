@@ -45,12 +45,12 @@ io.on('connection', socket => {
     // make sure user is not already in a game
     if(socket.handshake.session.gameId !== undefined) return;
 
-    // generate random id
+    // generate random id of 20 characters
     var gameIdCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var gameId;
     do {
       gameId = '';
-      while(gameId.length < 16) {
+      while(gameId.length < 20) {
         gameId += gameIdCharacters.substr(Math.floor(Math.random() * gameIdCharacters.length), 1);
       }
     } while(Object.keys(rooms).indexOf(gameId) !== -1);
@@ -59,6 +59,28 @@ io.on('connection', socket => {
 
     callback(gameId);
 
+  });
+
+  // check if user is host
+  socket.on('isHost', callback => {
+    var hostInterval = setInterval(() => {
+      socket.handshake.session.reload(() => {
+        if(socket.handshake.session.host !== undefined) {
+          clearInterval(hostInterval);
+          callback(socket.handshake.session.host === true);
+        }
+      });
+    }, 50);
+  });
+
+  // set a user's name
+  socket.on('setName', name => {
+    // get room, set name
+    var room = rooms[socket.handshake.session.gameId];
+    room.clients.find(client => client.id === socket.handshake.session.id).name = name;
+
+    // tell sockets to update names
+    io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
   });
 
   // handle when a person disconnects
@@ -105,6 +127,12 @@ app.get('/game/:gameId', (req, res, next) => {
         return;
       }
 
+      // error 3: user is already in the game
+      if(rooms[gameId].clients.find(client => client.id === req.session.id) !== undefined || rooms[gameId].host === req.session.id) {
+        socket.emit('err', 'You are already in this game on another tab.');
+        return;
+      }
+
       // add gameId to session, session id to game room
       req.session.gameId = gameId;
 
@@ -113,13 +141,15 @@ app.get('/game/:gameId', (req, res, next) => {
         rooms[gameId].host = req.session.id;
         req.session.host = true;
       } else {
-        rooms[gameId].clients.push(req.session.id);
+        rooms[gameId].clients.push({ id: req.session.id, name: null });
+        req.session.host = false;
       }
+      req.session.save();
 
       // join game room
       socket.join(gameId);
       socket.emit('gameId', gameId);
-      io.to(gameId).emit('join');
+      io.to(gameId).emit('updateNames', rooms[gameId].clients.map(client => client.name));
     }
   }), 50);
 
