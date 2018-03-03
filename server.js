@@ -87,7 +87,25 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log(`A user with socket id ${socket.id} has disconnected.`);
 
-    // TODO: delete room if host
+    // delete room if host
+    if(sokcet.handshake.session.gameId !== undefined && socket.handshake.session.host === true) {
+      // delete room?
+    }
+
+    // delete person if client
+    if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === false) {
+      var room = rooms[socket.handshake.session.gameId];
+      room.clients = room.clients.filter(client => client.id !== socket.handshake.session.id);
+
+      // update other users
+      io.to(socket.handshake.session.gameId).emit('updateNames');
+
+      // also remove from session
+      socket.handshake.session.gameId = undefined;
+      socket.handshake.session.host = undefined;
+      socket.handshake.session.save();
+
+    }
   });
 
 });
