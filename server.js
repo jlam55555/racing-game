@@ -77,10 +77,30 @@ io.on('connection', socket => {
   socket.on('setName', name => {
     // get room, set name
     var room = rooms[socket.handshake.session.gameId];
-    room.clients.find(client => client.id === socket.handshake.session.id).name = name;
+    room.clients.find(client => client.socketId === socket.id).name = name;
 
     // tell sockets to update names
     io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
+  });
+
+  // handle device orientation input
+  socket.on('deviceOrientation', (forwardSpeed, turnSpeed) => {
+
+    // if not in game return
+    if(!socket.handshake.session.gameId) return;
+
+    // get correct client
+    console.log(socket.handshake.session.id);
+    var client = rooms[socket.handshake.session.gameId].clients.find(client => client.socketId === socket.id);
+
+    // if host return
+    if(!client) return;
+
+    // update client speed, heading
+    // speed is limited from -90 to +90
+    // heading is converted into radians
+    client.speed = Math.max(-90, Math.min(90, forwardSpeed));
+    client.heading += Math.PI/180 * turnSpeed;
   });
 
   // handle when a person disconnects
@@ -99,7 +119,7 @@ io.on('connection', socket => {
     // delete person if client
     if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === false) {
       var room = rooms[socket.handshake.session.gameId];
-      room.clients = room.clients.filter(client => client.id !== socket.handshake.session.id);
+      room.clients = room.clients.filter(client => client.socketId !== socket.id);
 
       // update other users
       io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
@@ -115,16 +135,47 @@ io.on('connection', socket => {
 
 
 /**
+  * Do game updates every 10ms
+  * This happens here to ensure every person moves at the same speed
+  * @author Jonathan Lam
+  */
+setInterval(() => {
+  // update every game room
+  for(var room of Object.keys(rooms)) {
+    for(var client of rooms[room].clients) {
+      client.x += Math.cos(client.heading) * client.speed;
+      client.y += Math.sin(client.heading) * client.speed;
+    }
+
+    // send data to host
+    if(rooms[room].host) {
+      io.sockets.sockets[rooms[room].host.socketId].emit('updatedMap', rooms[room].clients);
+    }
+  }
+}, 10);
+
+
+/**
   * Rooms to allow people to play multiplayer
   * @todo   add verification that server is created, number of people is less than 3
   * @author Jonathan Lam
   */
 
 var rooms = {};
-/* room format: {
+/*
+room format: {
   host: [hostId],
   clients: [arrayOfClientIds]
-} */
+}
+client format: {
+  name: [name],
+  id: [sessionId],
+  x: [xPosition],
+  y: [yPosistion],
+  z: 0 (for now),
+  heading: [heading]
+}
+*/
 
 app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
@@ -149,7 +200,7 @@ app.get('/game/:gameId', (req, res, next) => {
       }
 
       // error 3: user is already in the game
-      if(rooms[gameId].clients.find(client => client.id === req.session.id) !== undefined || rooms[gameId].host === req.session.id) {
+      if(rooms[gameId].clients.find(client => client.sessionId === req.session.id) !== undefined || (rooms[gameId].host && rooms[gameId].host.sessionId === req.session.id)) {
         socket.emit('err', 'You are already in this game on another tab.');
         return;
       }
@@ -159,10 +210,23 @@ app.get('/game/:gameId', (req, res, next) => {
 
       // if first person, then host; if not, then client
       if(rooms[gameId].host === null) {
-        rooms[gameId].host = req.session.id;
+        rooms[gameId].host = {
+          sessionId: req.session.id,
+          socketId: socket.id
+        };
         req.session.host = true;
       } else {
-        rooms[gameId].clients.push({ id: req.session.id, name: null });
+        // create default client
+        rooms[gameId].clients.push({
+          sessionId: req.session.id,
+          socketId: socket.id,
+          name: null,
+          x: 0,
+          y: 0,
+          z: 0,
+          speed: 0,
+          heading: 0
+        });
         req.session.host = false;
       }
       req.session.save();
@@ -177,4 +241,9 @@ app.get('/game/:gameId', (req, res, next) => {
   res.sendFile(`${__dirname}/public/game.html`);
 });
 
+
+/**
+  * Static serving in express for resources (*.css, *.js)
+  * @author Jonathan Lam
+  */
 app.use(express.static('public'));

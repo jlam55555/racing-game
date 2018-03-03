@@ -70,32 +70,6 @@
         <input type='text' id='joinGameId' placeholder='Game ID'>
         <button id='joinGame'>Join</button>
       </div>
-
-      <!--
-        Testing out the deviceorientationevent; remove when complete
-        @author Jonathan Lam
-        -->
-      Point your device left. This is for testing only.
-      <div id='deviceorientationevent'></div>
-      <script>
-        window.addEventListener('deviceorientation', event => {
-
-          var forwardSpeed = 0, turnSpeed = 0;
-          // device facing upwards
-          if(Math.abs(event.beta) < 90) {
-            forwardSpeed = event.gamma;
-            turnSpeed = event.beta;
-          }
-          // device facing downwards -- put at extreme (-90 or 90)
-          else {
-            forwardSpeed = event.gamma < 0 ? 90 : -90;
-            turnSpeed = (event.beta < 0 ? -180 : 180) - event.beta;
-          }
-
-          // print stuff out
-          document.querySelector('#deviceorientationevent').innerHTML = `alpha: ${event.alpha}<br>beta: ${event.beta}<br>gamma: ${event.gamma}<br>speed: ${forwardSpeed}<br>turn: ${turnSpeed}`;
-        });
-      </script>
     </div>
 
   </body>
