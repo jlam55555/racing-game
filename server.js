@@ -88,7 +88,7 @@ io.on('connection', socket => {
     console.log(`A user with socket id ${socket.id} has disconnected.`);
 
     // delete room if host
-    if(sokcet.handshake.session.gameId !== undefined && socket.handshake.session.host === true) {
+    if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === true) {
       // delete room?
     }
 
