@@ -21,4 +21,9 @@ Multiplayer racing game for AP CSP Create task
 First day! Basic setup of socket.io, three.js.
 ![first day][1]
 
+##### 3/3/18
+Jazzed up the homepage styles.
+![second day][2]
+
 [1]: http://imgur.com/EEHYOzSl.png
+[2]: http://imgur.com/dQ6PAiXl.png
