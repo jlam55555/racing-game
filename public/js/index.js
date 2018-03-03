@@ -29,5 +29,7 @@ createGameButton.addEventListener('click', () => {
 var joinGameId = document.querySelector('#joinGameId');
 var joinGameButton = document.querySelector('#joinGame');
 joinGameButton.addEventListener('click', () => {
-  window.location.href = `${window.location.href}game/${joinGameId.value}`;
+  if(trim(joinGameId.value) !== '') {
+    window.location.href = `${window.location.href}game/${joinGameId.value}`;
+  }
 })
