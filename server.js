@@ -102,7 +102,7 @@ io.on('connection', socket => {
       room.clients = room.clients.filter(client => client.id !== socket.handshake.session.id);
 
       // update other users
-      io.to(socket.handshake.session.gameId).emit('updateNames');
+      io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
     }
 
     // also remove from session
