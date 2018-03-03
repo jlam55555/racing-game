@@ -47,7 +47,7 @@ io.on('connection', socket => {
 });
 
 /**
-  * Rooms to allow people
+  * Rooms to allow people to play multiplayer
   * @author Jonathan Lam
   */
 app.get('/game/:gameid', (req, res, next) => {
@@ -66,7 +66,7 @@ app.get('/game/:gameid', (req, res, next) => {
     }
   }), 50);
 
-  res.sendFile(`${__dirname}/public/index.html`);
+  res.sendFile(`${__dirname}/public/game.html`);
 });
 
 app.use(express.static('public'));
