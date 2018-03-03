@@ -39,19 +39,50 @@ io.on('connection', socket => {
   socket.handshake.session.socketId = socket.id;
   socket.handshake.session.save();
 
+  // handle when a person creates a new game
+  socket.on('createNewGame', callback => {
+
+    // make sure user is not already in a game
+    if(socket.handshake.session.gameId !== undefined) return;
+
+    // generate random id
+    var gameIdCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var gameId;
+    do {
+      gameId = '';
+      while(gameId.length < 16) {
+        gameId += gameIdCharacters.substr(Math.floor(Math.random() * gameIdCharacters.length), 1);
+      }
+    } while(Object.keys(rooms).indexOf(gameId) !== -1);
+
+    rooms[gameId] = { host: null, clients: [] };
+
+    callback(gameId);
+
+  });
+
   // handle when a person disconnects
   socket.on('disconnect', () => {
     console.log(`A user with socket id ${socket.id} has disconnected.`);
+
+    // TODO: delete room if host
   });
 
 });
+
 
 /**
   * Rooms to allow people to play multiplayer
   * @todo   add verification that server is created, number of people is less than 3
   * @author Jonathan Lam
   */
-var rooms = [];
+
+var rooms = {};
+/* room format: {
+  host: [hostId],
+  clients: [arrayOfClientIds]
+} */
+
 app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
   var gameId = req.params.gameId;
@@ -63,20 +94,27 @@ app.get('/game/:gameId', (req, res, next) => {
       clearInterval(syncInterval);
 
       // error 1: room does not exist
-      if(rooms.indexOf(gameId) === -1) {
+      if(Object.keys(rooms).indexOf(gameId) === -1) {
         socket.emit('err', `Game room "${gameId}" does not exist.`);
         return;
       }
 
-      // error 2: room has more than three people in it
-      if(rooms[gameId].ids.length > 3) {
+      // error 2: room has more than four people in it
+      if(rooms[gameId].clients.length > 3) {
         socket.emit('err', `Game room "${gameId}" is already full.`);
         return;
       }
 
       // add gameId to session, session id to game room
       req.session.gameId = gameId;
-      rooms[gameId].ids.push(req.session.id);
+
+      // if first person, then host; if not, then client
+      if(rooms[gameId].host === null) {
+        rooms[gameId].host = req.session.id;
+        req.session.host = true;
+      } else {
+        rooms[gameId].clients.push(req.session.id);
+      }
 
       // join game room
       socket.join(gameId);

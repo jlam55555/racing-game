@@ -8,9 +8,22 @@
   */
 var socket = io();
 
+
+/**
+  * Create a game when button is clicked
+  * @author Jonathan Lam
+  */
+var createGameButton = document.querySelector('#createGame');
+createGameButton.addEventListener('click', () => {
+  // redirect to page on click
+  socket.emit('createNewGame', newGameId => {
+    window.location.href = `${window.location.href}game/${newGameId}`;
+  });
+});
+
+
 /**
   * Join a room when button is clicked
-  * @todo   Add server-side verification before submitting
   * @author Jonathan Lam
   */
 var joinGameId = document.querySelector('#joinGameId');
