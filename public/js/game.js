@@ -9,5 +9,5 @@
   */
 var socket = io();
 
-// testing: make sure connected to room
-socket.on('message', msg => console.log(msg));
+// get game id to show on element #gameId
+socket.on('gameId', gameId => document.querySelector('#gameId').textContent = gameId);

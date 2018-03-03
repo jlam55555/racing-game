@@ -50,9 +50,9 @@ io.on('connection', socket => {
   * Rooms to allow people to play multiplayer
   * @author Jonathan Lam
   */
-app.get('/game/:gameid', (req, res, next) => {
+app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
-  var gameid = req.params.gameid;
+  var gameId = req.params.gameId;
   var socket;
 
   // sync up to socket to join room (keep refreshing until socketId is updated)
@@ -61,8 +61,8 @@ app.get('/game/:gameid', (req, res, next) => {
       clearInterval(syncInterval);
 
       // this code will run when corresponding socket is found
-      socket.join(gameid);
-      io.to(gameid).emit('message', `testing: you are in room ${gameid}`);
+      socket.join(gameId);
+      io.to(gameId).emit('gameId', gameId);
     }
   }), 50);
 
