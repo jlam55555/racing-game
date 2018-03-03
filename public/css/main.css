@@ -1,0 +1,19 @@
+/**
+  * Generic page style
+  * Applies to both index.html and game.html
+  */
+
+  
+/**
+  * Set basic styles for all elements and html, body
+  * @author Jonathan Lam
+  */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  height: 100%;
+  font-size: 16px;
+  font-family: verdana;
+}

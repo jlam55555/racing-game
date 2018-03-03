@@ -1,0 +1,13 @@
+/**
+  * Styling for the host
+  * Applies to game.html
+  * @todo make this only apply to host computer
+  */
+
+/**
+  * style tag for canvas
+  * @author Rahul Kiefer
+  */
+canvas {
+  width: 100%; height: 100%;
+}
