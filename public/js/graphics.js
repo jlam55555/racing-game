@@ -15,7 +15,7 @@ document.body.appendChild(renderer.domElement);
 
 //creating cube
 var geometry = new THREE.BoxGeometry(5,5,5);
-var material = new THREE.MeshBasicMaterial( {color: 0xCC0000 } );
+var material = new THREE.MeshLambertMaterial( {color: 0xCC0000 } );
 var cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
@@ -31,10 +31,15 @@ function animate() {
 }
 animate();
 
-//light
-//Light(0xffffff, 1);
+//creating spotLight
+var spotLight = new THREE.SpotLight( 0xffffff );
+spotLight.position.set( 0, 10, 100 );
 
-//creating pointlight
-var light = new THREE.PointLight( 0xff0000, 1, 100 );
-light.position.set( 10, 10, 10);
-scene.add( light );
+spotLight.shadow.mapSize.width = 1024;
+spotLight.shadow.mapSize.height = 1024;
+
+spotLight.shadow.camera.near = 500;
+spotLight.shadow.camera.far = 4000;
+spotLight.shadow.camera.fov = 30;
+
+scene.add( spotLight );
