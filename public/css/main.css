@@ -3,7 +3,7 @@
   * Applies to both index.html and game.html
   */
 
-  
+
 /**
   * Set basic styles for all elements and html, body
   * @author Jonathan Lam
@@ -15,5 +15,18 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 16px;
-  font-family: verdana;
+  font-family: verdana, sans-serif;
+}
+a, button, select, input {
+  outline: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+button, input {
+  border: none;
+  padding: 1em;
+}
+input {
+  background-color: #eee;
 }

@@ -1,0 +1,37 @@
+/**
+  * Styles for homepage
+  * Applies to index.html
+  */
+
+/**
+  * Put computer and smartphone divs side by side
+  * @author Jonathan Lam
+  */
+body {
+  display: flex;
+  flex-direction: row;
+}
+.deviceTypeContainer {
+  flex-grow: 1;
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3em;
+}
+.deviceTypeContainer:nth-child(2) {
+  border-left: 5px solid black;
+}
+.deviceTypeHeader {
+  text-align: center;
+}
+#joinGameContainer {
+  display: flex;
+  flex-direction: row;
+}
+#joinGameId {
+  flex-grow: 5;
+}
+#joinGame {
+  flex-grow: 1;
+}

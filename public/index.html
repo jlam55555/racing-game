@@ -17,10 +17,11 @@
     <meta name='keywords' content='multiplayer, racing, game, CSP, computer science principles, jonathan lam, rahul kiefer'>
 
     <!--
-      include main stylesheet
+      include stylesheets
       @author Jonathan Lam
       -->
     <link rel='stylesheet' href='css/main.css'>
+    <link rel='stylesheet' href='css/index.css'>
 
     <!--
       include socket.io library
@@ -54,16 +55,22 @@
       Create a room for hosts
       @author Jonathan Lam
       -->
-    <h1>Hosts: Computers</h1>
-    <button id='createGame'>Create new game</button>
+    <div class='deviceTypeContainer'>
+      <h1 class='deviceTypeHeader'>Are you a computer?</h1>
+      <button id='createGame'>Create new game</button>
+    </div>
 
     <!--
       Join a room for mobile
       @author Jonathan Lam
       -->
-    <h1>Clients: Smartphones</h1>
-    <input type='text' id='joinGameId' placeholder='Game ID'>
-    <button id='joinGame'>Join</button>
+    <div class='deviceTypeContainer'>
+      <h1 class='deviceTypeHeader'>Are you a smartphone or tablet?</h1>
+      <div id='joinGameContainer'>
+        <input type='text' id='joinGameId' placeholder='Game ID'>
+        <button id='joinGame'>Join</button>
+      </div>
+    </div>
 
   </body>
 </html>
