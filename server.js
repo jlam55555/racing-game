@@ -48,8 +48,10 @@ io.on('connection', socket => {
 
 /**
   * Rooms to allow people to play multiplayer
+  * @todo   add verification that server is created, number of people is less than 3
   * @author Jonathan Lam
   */
+var rooms = [];
 app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
   var gameId = req.params.gameId;
@@ -60,9 +62,26 @@ app.get('/game/:gameId', (req, res, next) => {
     if(req.session.socketId !== undefined && (socket = io.sockets.sockets[req.session.socketId]) !== undefined) {
       clearInterval(syncInterval);
 
-      // this code will run when corresponding socket is found
+      // error 1: room does not exist
+      if(rooms.indexOf(gameId) === -1) {
+        socket.emit('err', `Game room "${gameId}" does not exist.`);
+        return;
+      }
+
+      // error 2: room has more than three people in it
+      if(rooms[gameId].ids.length > 3) {
+        socket.emit('err', `Game room "${gameId}" is already full.`);
+        return;
+      }
+
+      // add gameId to session, session id to game room
+      req.session.gameId = gameId;
+      rooms[gameId].ids.push(req.session.id);
+
+      // join game room
       socket.join(gameId);
-      io.to(gameId).emit('gameId', gameId);
+      socket.emit('gameId', gameId);
+      io.to(gameId).emit('join');
     }
   }), 50);
 
