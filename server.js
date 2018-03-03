@@ -89,7 +89,11 @@ io.on('connection', socket => {
 
     // delete room if host
     if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === true) {
-      // delete room?
+      // delete room
+      var room = rooms[socket.handshake.session.gameId];
+
+      // tell users to go away
+      io.to(socket.handshake.session.gameId).emit('terminateGame');
     }
 
     // delete person if client
@@ -99,13 +103,12 @@ io.on('connection', socket => {
 
       // update other users
       io.to(socket.handshake.session.gameId).emit('updateNames');
-
-      // also remove from session
-      socket.handshake.session.gameId = undefined;
-      socket.handshake.session.host = undefined;
-      socket.handshake.session.save();
-
     }
+
+    // also remove from session
+    socket.handshake.session.gameId = undefined;
+    socket.handshake.session.host = undefined;
+    socket.handshake.session.save();
   });
 
 });

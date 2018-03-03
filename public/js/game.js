@@ -46,3 +46,11 @@ socket.on('updateNames', names => {
     namesElement.appendChild(nameDiv);
   }
 });
+
+/**
+  * Terminate game (if host leaves)
+  * @author Jonathan Lam
+  */
+socket.on('terminateGame', () => {
+  window.location.href = '/';
+});
