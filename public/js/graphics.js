@@ -31,14 +31,9 @@ function animate() {
 }
 animate();
 
-<<<<<<< HEAD
 //creating spotLight
 var spotLight = new THREE.SpotLight( 0xffffff );
 spotLight.position.set( 0, 10, 100 );
-=======
-//light
-//Light(0xffffff, 1);
->>>>>>> 5a23f22f401d0db53e4e96e6185ab5abc623f708
 
 spotLight.shadow.mapSize.width = 1024;
 spotLight.shadow.mapSize.height = 1024;
