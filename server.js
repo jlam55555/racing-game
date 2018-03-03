@@ -39,20 +39,75 @@ io.on('connection', socket => {
   socket.handshake.session.socketId = socket.id;
   socket.handshake.session.save();
 
+  // handle when a person creates a new game
+  socket.on('createNewGame', callback => {
+
+    // make sure user is not already in a game
+    if(socket.handshake.session.gameId !== undefined) return;
+
+    // generate random id of 20 characters
+    var gameIdCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var gameId;
+    do {
+      gameId = '';
+      while(gameId.length < 20) {
+        gameId += gameIdCharacters.substr(Math.floor(Math.random() * gameIdCharacters.length), 1);
+      }
+    } while(Object.keys(rooms).indexOf(gameId) !== -1);
+
+    rooms[gameId] = { host: null, clients: [] };
+
+    callback(gameId);
+
+  });
+
+  // check if user is host
+  socket.on('isHost', callback => {
+    var hostInterval = setInterval(() => {
+      socket.handshake.session.reload(() => {
+        if(socket.handshake.session.host !== undefined) {
+          clearInterval(hostInterval);
+          callback(socket.handshake.session.host === true);
+        }
+      });
+    }, 50);
+  });
+
+  // set a user's name
+  socket.on('setName', name => {
+    // get room, set name
+    var room = rooms[socket.handshake.session.gameId];
+    room.clients.find(client => client.id === socket.handshake.session.id).name = name;
+
+    // tell sockets to update names
+    io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
+  });
+
   // handle when a person disconnects
   socket.on('disconnect', () => {
     console.log(`A user with socket id ${socket.id} has disconnected.`);
+
+    // TODO: delete room if host
   });
 
 });
 
+
 /**
-  * Rooms to allow people
+  * Rooms to allow people to play multiplayer
+  * @todo   add verification that server is created, number of people is less than 3
   * @author Jonathan Lam
   */
-app.get('/game/:gameid', (req, res, next) => {
+
+var rooms = {};
+/* room format: {
+  host: [hostId],
+  clients: [arrayOfClientIds]
+} */
+
+app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
-  var gameid = req.params.gameid;
+  var gameId = req.params.gameId;
   var socket;
 
   // sync up to socket to join room (keep refreshing until socketId is updated)
@@ -60,13 +115,45 @@ app.get('/game/:gameid', (req, res, next) => {
     if(req.session.socketId !== undefined && (socket = io.sockets.sockets[req.session.socketId]) !== undefined) {
       clearInterval(syncInterval);
 
-      // this code will run when corresponding socket is found
-      socket.join(gameid);
-      io.to(gameid).emit('message', `testing: you are in room ${gameid}`);
+      // error 1: room does not exist
+      if(Object.keys(rooms).indexOf(gameId) === -1) {
+        socket.emit('err', `Game room "${gameId}" does not exist.`);
+        return;
+      }
+
+      // error 2: room has more than four people in it
+      if(rooms[gameId].clients.length > 3) {
+        socket.emit('err', `Game room "${gameId}" is already full.`);
+        return;
+      }
+
+      // error 3: user is already in the game
+      if(rooms[gameId].clients.find(client => client.id === req.session.id) !== undefined || rooms[gameId].host === req.session.id) {
+        socket.emit('err', 'You are already in this game on another tab.');
+        return;
+      }
+
+      // add gameId to session, session id to game room
+      req.session.gameId = gameId;
+
+      // if first person, then host; if not, then client
+      if(rooms[gameId].host === null) {
+        rooms[gameId].host = req.session.id;
+        req.session.host = true;
+      } else {
+        rooms[gameId].clients.push({ id: req.session.id, name: null });
+        req.session.host = false;
+      }
+      req.session.save();
+
+      // join game room
+      socket.join(gameId);
+      socket.emit('gameId', gameId);
+      io.to(gameId).emit('updateNames', rooms[gameId].clients.map(client => client.name));
     }
   }), 50);
 
-  res.sendFile(`${__dirname}/public/index.html`);
+  res.sendFile(`${__dirname}/public/game.html`);
 });
 
 app.use(express.static('public'));

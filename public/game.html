@@ -47,25 +47,20 @@
       include main script
       @author Jonathan Lam
       -->
-    <script src='/js/index.js' defer></script>
+    <script src='/js/game.js' defer></script>
 
   </head>
   <body>
 
     <!--
-      Create a room for hosts
+      Basic Hello, World! for testing (remove this soon)
       @author Jonathan Lam
       -->
-    <h1>Hosts: Computers</h1>
-    <button id='createGame'>Create new game</button>
-
-    <!--
-      Join a room for mobile
-      @author Jonathan Lam
-      -->
-    <h1>Clients: Smartphones</h1>
-    <input type='text' id='joinGameId' placeholder='Game ID'>
-    <button id='joinGame'>Join</button>
+    <h1>Welcome to the game!</h1>
+    <div id='gameIdContainer'>Your game id is: <span id='gameId'></span>.</div>
+    <div id='error'></div>
+    <a href='/'>Return to the homepage.</a>
+    <div id='names'></div>
 
   </body>
 </html>
