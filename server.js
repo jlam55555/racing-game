@@ -99,7 +99,7 @@ io.on('connection', socket => {
     // speed is limited from -90 to +90
     // heading is converted into radians
     client.speed = Math.max(-90, Math.min(90, forwardSpeed));
-    client.heading += Math.PI/180 * turnSpeed;
+    client.turn = Math.PI/180 * turnSpeed;
   });
 
   // handle when a person disconnects
@@ -138,12 +138,18 @@ io.on('connection', socket => {
   * This happens here to ensure every person moves at the same speed
   * @author Jonathan Lam
   */
+var speedMultiplier = 0.5;
+var turnMultiplier = 0.1;
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
     for(var client of rooms[room].clients) {
-      client.x += Math.cos(client.heading) * client.speed;
-      client.y += Math.sin(client.heading) * client.speed;
+      // movement depends on heading
+      client.x += Math.cos(client.heading) * client.speed * speedMultiplier;
+      client.y += Math.sin(client.heading) * client.speed * speedMultiplier;
+
+      // turn proportional to the speed and the angle of the turn
+      client.heading += client.turn * client.speed * turnMultiplier;
     }
 
     // send data to host
@@ -225,7 +231,8 @@ app.get('/game/:gameId', (req, res, next) => {
           y: 0,
           z: 0,
           speed: 0,
-          heading: 0
+          heading: 0,
+          turn: 0
         });
         req.session.host = false;
       }

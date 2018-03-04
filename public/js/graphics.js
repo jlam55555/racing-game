@@ -56,6 +56,16 @@ function Car() {
 	this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
 	this.mesh = new THREE.Mesh(this.geometry, this.material);
 	scene.add(this.mesh);
+
+  this.addCamera = camera => {
+      this.camera = camera;
+      this.mesh.add(camera);
+  };
+
+  this.remove = () => {
+    this.mesh.remove(this.camera);
+    scene.remove(this.mesh);
+  };
 }
 var car = new Car();
 
@@ -71,8 +81,8 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+    position: [20, 2, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],
     fov: 30
   },
   // car 2: right top
@@ -114,12 +124,20 @@ var views = [
 var map = [];
 var cars = [];
 function updateCars() {
+  // remove all cars
+  for(var i = 0; i < cars.length; i++) {
+    cars[i].remove();
+  }
+
+  // make new ones
   for(var i = 0; i < map.length; i++) {
     var car = new Car();
+    // x and y are coordinates on flat plane in server
+    // x and z are coordinates on flat plane in three.js
     car.mesh.position.x = map[i].x;
-    car.mesh.position.y = map[i].y;
-    car.mesh.position.z = map[i].z;
-    car.mesh.add(views[i].camera);
+    car.mesh.position.z = map[i].y;
+    car.mesh.position.y = map[i].z;
+    car.addCamera(views[i].camera);
     cars.push(car);
   }
 }
@@ -178,10 +196,11 @@ function animate() {
   // update coordinates of cars
   for(var i = 0; i < map.length; i++) {
     if(cars[i]) {
+      // see note above for switched z and y
       cars[i].mesh.position.x = map[i].x;
-      cars[i].mesh.position.y = map[i].y;
-      cars[i].mesh.position.z = map[i].z;
-      console.log(cars[i].mesh.position, map[i].x, map[i].y, map[i].z);
+      cars[i].mesh.position.z = map[i].y;
+      cars[i].mesh.position.y = map[i].z;
+      cars[i].mesh.rotation.y = -map[i].heading;
     }
   }
 
