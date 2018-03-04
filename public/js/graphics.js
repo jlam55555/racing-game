@@ -62,44 +62,48 @@ scene.add(carMesh);
   * @author Jonathan Lam
   */
 var views = [
+  // car 1: left top
   {
     left: 0,
     top: 0,
     width: 0.5,
-    height: 1.0,
+    height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
     position: [3.25, 5, 20], //pos of camera relative to car
     rotation: [-.1, 0, 0],
     fov: 30
   },
+  // car 2: right top
   {
-    left: 0,
+    left: 0.5,
     top: 0,
     width: 0.5,
-    height: 1.0,
+    height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [2.5, 7.5, 14.5], //pos of camera relative to car
-    rotation: [-.5, 0, 0],
+    position: [3.25, 5, 20], //pos of camera relative to car
+    rotation: [-.1, 0, 0],
     fov: 30
   },
+  // car 3: left bottom
   {
     left: 0,
-    top: 0,
+    top: 0.5,
     width: 0.5,
-    height: 1.0,
+    height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [2.5, 7.5, 14.5], //pos of camera relative to car
-    rotation: [-.5, 0, 0],
+    position: [3.25, 5, 20], //pos of camera relative to car
+    rotation: [-.1, 0, 0],
     fov: 30
   },
+  // car 4: right bottom
   {
-    left: 0,
-    top: 0,
+    left: 0.5,
+    top: 0.5,
     width: 0.5,
-    height: 1.0,
+    height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [2.5, 7.5, 14.5], //pos of camera relative to car
-    rotation: [-.5, 0, 0],
+    position: [3.25, 5, 20], //pos of camera relative to car
+    rotation: [-.1, 0, 0],
     fov: 30
   }
 ];
@@ -130,7 +134,7 @@ function init() {
   spotLight.shadow.camera.fov = 30;
 
   scene.add(spotLight);
-  
+
 
 
 	/**
