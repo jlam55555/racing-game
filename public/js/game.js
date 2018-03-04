@@ -85,11 +85,10 @@ window.addEventListener('deviceorientation', event => {
 });
 
 /**
-  * If host, display positions of all users (for now)
+  * If host, get all user positions
   * @author Jonathan Lam
   */
-socket.on('updatedMap', map => {
-
-  // just log map for now
-  // console.log(map);
+var map = [];
+socket.on('updatedMap', mapData => {
+  map = mapData;
 });
