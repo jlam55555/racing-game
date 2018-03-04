@@ -29,7 +29,7 @@ renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
 /**
-	* Create the car
+	* Function to create a car
 	* @author Rahul Kiefer
 	*/
 function Car() {
@@ -68,15 +68,15 @@ var car = new Car();
   * @author Jonathan Lam
   */
 var views = [
-  // car 1: left top
+  // car 1: left top [currently: viewing car from front *FIX*]
   {
     left: 0,
     top: 0,
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+    position: [-20, 3, 2], //pos of camera relative to car default: [3.25, 5, 20]
+    rotation: [-.01, -Math.PI/2, 0], //default: [-.1, 0, 0]
     fov: 30
   },
   // car 2: right top
@@ -154,11 +154,12 @@ function init() {
 	  * @author Rahul Kiefer
 	  */
   var floor = new THREE.Mesh(
-  	new THREE.PlaneGeometry(20, 100),
+  	new THREE.PlaneGeometry(15, 15),
   	new THREE.MeshLambertMaterial({color: 0x808080})
   );
-  floor.rotation.x = 0; //set back to zero later, fix camera angle
-  //scene.add(floor);
+
+  floor.rotation.x = -Math.PI/2; //set back to zero later, fix camera angle
+  scene.add(floor);
 }
 
 /**
