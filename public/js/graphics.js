@@ -32,18 +32,20 @@ element.appendChild(renderer.domElement);
 	* Create the car
 	* @author Rahul Kiefer
 	*/
-var carLength = 5, carWidth = 3;
 
 var carShape = new THREE.Shape();
 carShape.moveTo(0,0);
-carShape.lineTo( 0, carWidth );
-carShape.lineTo( carLength, carWidth );
-carShape.lineTo( carLength, 0 );
-carShape.lineTo( 0, 0 );
+carShape.lineTo(0,2); //from front bottom to front of hood
+carShape.lineTo(2,2); //from front of hood to windshield
+carShape.lineTo(2.5,3.25); //from bottom of windshield to top of windshield
+carShape.lineTo(4.5,3.25); //from top of windshield to top of back window
+carShape.lineTo(5,2); //from top of back window to bottom of back window
+carShape.lineTo(6,2); //from bottom of back window to top of trunk
+carShape.lineTo(6,0); //from top of trunk to bottom of trunk
 
 var carExtrudeSettings = {
 	steps: 1,
-	amount: carWidth,
+	amount: 3,
 	bevelEnabled: false,
 	bevelThickness: 1,
 	bevelSize: 1,
@@ -66,8 +68,8 @@ var views = [
     width: 0.5,
     height: 1.0,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [2.5, 7.5, 14.5], //pos of camera relative to car
-    rotation: [-.5, 0, 0],
+    position: [3.25, 5, 20], //pos of camera relative to car
+    rotation: [-.1, 0, 0],
     fov: 30
   },
   {
@@ -95,7 +97,7 @@ function init() {
     carMesh.add(camera);
     view.camera = camera;
   }
-  /*
+
   //creating spotLight
   var spotLight = new THREE.SpotLight( 0xffffff );
   spotLight.position.set(0, 10, 100);
@@ -108,15 +110,16 @@ function init() {
   spotLight.shadow.camera.fov = 30;
 
   scene.add(spotLight);
-  */
+  
+
 
 	/**
 	  * Create ambient light
 	  * @author Rahul Kiefer
-	  */
+
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
   scene.add(ambLight);
-
+*/
 	/**
 	  * Create the floor
 	  * @author Rahul Kiefer
