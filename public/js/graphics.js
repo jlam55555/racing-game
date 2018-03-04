@@ -29,18 +29,22 @@ renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
 /**
-	* Create the car
+	* Function to create a car
 	* @author Rahul Kiefer
 	*/
 function Car() {
+
+	var hoodHeight = 1.25; //height of a car's hood
+	var carHeight = hoodHeight + .75; //distance between ground and roof
+
 	this.shape = new THREE.Shape(); //drawing the car
 	this.shape.moveTo(0,0);
-	this.shape.lineTo(0,2); //from front bottom to front of hood
-	this.shape.lineTo(2,2); //from front of hood to windshield
-	this.shape.lineTo(2.5,3.25); //from bottom of windshield to top of windshield
-	this.shape.lineTo(4.5,3.25); //from top of windshield to top of back window
-	this.shape.lineTo(5,2); //from top of back window to bottom of back window
-	this.shape.lineTo(6,2); //from bottom of back window to top of trunk
+	this.shape.lineTo(0,hoodHeight); //from front bottom to front of hood
+	this.shape.lineTo(2,hoodHeight); //from front of hood to windshield
+	this.shape.lineTo(2.5,carHeight); //from bottom of windshield to top of windshield
+	this.shape.lineTo(4.5,carHeight); //from top of windshield to top of back window
+	this.shape.lineTo(5,hoodHeight); //from top of back window to bottom of back window
+	this.shape.lineTo(6,hoodHeight); //from bottom of back window to top of trunk
 	this.shape.lineTo(6,0); //from top of trunk to bottom of trunk
 
 	this.extrudeSettings = {
@@ -74,7 +78,7 @@ var car = new Car();
   * @author Jonathan Lam
   */
 var views = [
-  // car 1: left top
+  // car 1: left top [currently: viewing car from front *FIX*]
   {
     left: 0,
     top: 0,
@@ -92,8 +96,8 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+    position: [-20, 3, 2], //pos of camera relative to car
+    rotation: [-.01, -Math.PI/2, 0],
     fov: 30
   },
   // car 3: left bottom
@@ -178,11 +182,12 @@ function init() {
 	  * @author Rahul Kiefer
 	  */
   var floor = new THREE.Mesh(
-  	new THREE.PlaneGeometry(20, 100),
+  	new THREE.PlaneGeometry(15, 15),
   	new THREE.MeshLambertMaterial({color: 0x808080})
   );
-  floor.rotation.x = 0; //set back to zero later, fix camera angle
-  //scene.add(floor);
+
+  floor.rotation.x = -Math.PI/2; //set back to zero later, fix camera angle
+  scene.add(floor);
 }
 
 /**
