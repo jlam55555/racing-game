@@ -20,7 +20,10 @@ var height = element.getBoundingClientRect().height;
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
-// created renderer
+/**
+	* Create renderer
+	* @author Rahul Kiefer
+	*/
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
