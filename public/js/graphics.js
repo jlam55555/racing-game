@@ -202,7 +202,7 @@ function animate() {
   for(var i = 0; i < map.length; i++) {
     if(cars[i]) {
       // see note above for switched z and y
-      cars[i].mesh.position.x = map[i].x;
+      cars[i].mesh.position.x = -map[i].x;
       cars[i].mesh.position.z = -map[i].y;
       cars[i].mesh.position.y = map[i].z;
       cars[i].mesh.rotation.y = map[i].heading;
