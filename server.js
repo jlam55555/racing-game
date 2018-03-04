@@ -246,6 +246,7 @@ app.get('/game/:gameId', (req, res, next) => {
       socket.join(gameId);
       socket.emit('gameId', gameId);
       io.to(gameId).emit('updateNames', rooms[gameId].clients.map(client => client.name));
+      console.log(`A user with socket id ${socket.id} has joined the room ${gameId}.`);
     }
   }), 50);
 
