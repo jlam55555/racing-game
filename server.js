@@ -138,8 +138,8 @@ io.on('connection', socket => {
   * This happens here to ensure every person moves at the same speed
   * @author Jonathan Lam
   */
-var speedMultiplier = 0.05;
-var turnMultiplier = 0.01;
+var speedMultiplier = 0.005;
+var turnMultiplier = 0.001;
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
