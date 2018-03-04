@@ -90,7 +90,6 @@ io.on('connection', socket => {
     if(!socket.handshake.session.gameId) return;
 
     // get correct client
-    console.log(socket.handshake.session.id);
     var client = rooms[socket.handshake.session.gameId].clients.find(client => client.socketId === socket.id);
 
     // if host return
