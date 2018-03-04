@@ -188,7 +188,6 @@ client format: {
 */
 
 app.get('/game/:gameId', (req, res, next) => {
-  console.log('test 0');
 
   // send to game file
   res.sendFile(`${__dirname}/public/game.html`);
@@ -202,25 +201,20 @@ app.get('/game/:gameId', (req, res, next) => {
     if(req.session.socketId !== undefined && (socket = io.sockets.sockets[req.session.socketId]) !== undefined) {
       clearInterval(syncInterval);
 
-      console.log('test 1');
-
       // error 1: room does not exist
       if(Object.keys(rooms).indexOf(gameId) === -1) {
-        console.log('test 2');
         socket.emit('err', `Game room "${gameId}" does not exist.`);
         return;
       }
 
       // error 2: room has more than four people in it
       if(rooms[gameId].clients.length > 3) {
-        console.log('test 3');
         socket.emit('err', `Game room "${gameId}" is already full.`);
         return;
       }
 
       // error 3: user is already in the game
       if(rooms[gameId].clients.find(client => client.sessionId === req.session.id) !== undefined || (rooms[gameId].host && rooms[gameId].host.sessionId === req.session.id)) {
-        console.log('test 4');
         socket.emit('err', 'You are already in this game on another tab.');
         return;
       }
@@ -257,7 +251,6 @@ app.get('/game/:gameId', (req, res, next) => {
       socket.emit('gameId', gameId);
       io.to(gameId).emit('updateNames', rooms[gameId].clients.map(client => client.name));
       console.log(`A user with socket id ${socket.id} has joined the room ${gameId}.`);
-      console.log('test 5');
     }
   }), 1000);
 });
