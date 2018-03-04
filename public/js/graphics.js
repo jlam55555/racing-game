@@ -120,7 +120,7 @@ function init() {
 
   //creating spotLight
   var spotLight = new THREE.SpotLight( 0xffffff );
-  spotLight.position.set(0, 10, 100);
+  spotLight.position.set(3.5, 5, 20);
 
   spotLight.shadow.mapSize.width = 1024;
   spotLight.shadow.mapSize.height = 1024;
@@ -130,8 +130,6 @@ function init() {
   spotLight.shadow.camera.fov = 30;
 
   scene.add(spotLight);
-  
-
 
 	/**
 	  * Create ambient light
@@ -139,7 +137,8 @@ function init() {
 
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
   scene.add(ambLight);
-*/
+	*/
+
 	/**
 	  * Create the floor
 	  * @author Rahul Kiefer
