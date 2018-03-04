@@ -98,8 +98,12 @@ io.on('connection', socket => {
     // update client speed, heading
     // speed is limited from -90 to +90
     // heading is converted into radians
-    client.speed = Math.max(-90, Math.min(90, forwardSpeed));
+    client.speed = -Math.max(-90, Math.min(90, forwardSpeed));
     client.turn = Math.PI/180 * turnSpeed;
+
+    // prevent invalid speeds and turn speeds
+    if(client.speed < -90 || client.speed > 90) client.speed = 0;
+    if(client.turn < -90 || client.turn > 90) client.turn = 0;
   });
 
   // handle when a person disconnects
