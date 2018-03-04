@@ -20,9 +20,9 @@
       include stylesheets
       @author Jonathan Lam
       -->
-    <link rel='stylesheet' href='css/main.css'>
-    <link rel='stylesheet' href='css/host.css'>
-    <link rel='stylesheet' href='css/client.css'>
+    <link rel='stylesheet' href='/css/main.css'>
+    <link rel='stylesheet' href='/css/host.css'>
+    <link rel='stylesheet' href='/css/client.css'>
 
     <!--
       include socket.io library
@@ -52,14 +52,20 @@
   <body>
 
     <!--
-      Basic Hello, World! for testing (remove this soon)
+      Controls div on left
       @author Jonathan Lam
       -->
-    <h1>Welcome to the game!</h1>
-    <div id='gameIdContainer'>Your game id is: <span id='gameId'></span>.</div>
-    <div id='error'></div>
-    <a href='/'>Return to the homepage.</a>
-    <div id='names'></div>
+    <div id='controls'>
+      <h1>Welcome to the game!</h1>
+      <div id='gameIdContainer'>Your game id is: <span id='gameId'></span>.</div>
+      <div id='error'></div>
+      <a href='/'>Return to the homepage.</a>
+      <div id='names'></div>
+    </div>
+    <!--
+      Main canvas on right
+    -->
+    <div id='game'></div>
 
   </body>
 </html>

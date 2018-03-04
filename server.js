@@ -148,8 +148,9 @@ setInterval(() => {
     }
 
     // send data to host
-    if(rooms[room].host) {
-      io.sockets.sockets[rooms[room].host.socketId].emit('updatedMap', rooms[room].clients);
+    var hostSocket;
+    if(rooms[room].host && (hostSocket = io.sockets.sockets[rooms[room].host.socketId]) !== undefined) {
+      hostSocket.emit('updatedMap', rooms[room].clients);
     }
   }
 }, 10);

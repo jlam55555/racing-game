@@ -79,6 +79,7 @@ window.addEventListener('deviceorientation', event => {
     turnSpeed = (event.beta < 0 ? -180 : 180) - event.beta;
   }
 
+  // send in deviceorientation
   socket.emit('deviceOrientation', forwardSpeed, turnSpeed);
 
 });
@@ -88,6 +89,7 @@ window.addEventListener('deviceorientation', event => {
   * @author Jonathan Lam
   */
 socket.on('updatedMap', map => {
+
   // just log map for now
-  console.log(map);
+  // console.log(map);
 });

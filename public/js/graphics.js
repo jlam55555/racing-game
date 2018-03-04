@@ -3,14 +3,22 @@
   * @author Rahul Kiefer
   */
 
-//created scene and camera
+/**
+  * Use #game as base element
+  * @author Jonathan Lam
+  */
+var element = document.querySelector('#game');
+var width = element.getBoundingClientRect().width;
+var height = element.getBoundingClientRect().height;
+
+// created scene and camera
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
 // created renderer
 var renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+renderer.setSize(width, height);
+element.appendChild(renderer.domElement);
 
 //creating cube
 var geometry = new THREE.BoxGeometry(5,5,5);
