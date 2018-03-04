@@ -45,12 +45,12 @@ io.on('connection', socket => {
     // make sure user is not already in a game
     if(socket.handshake.session.gameId !== undefined) return;
 
-    // generate random id of 20 characters
-    var gameIdCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    // generate random id of five letters
+    var gameIdCharacters = 'abcdefghijklmnopqrstuvwxyz';
     var gameId;
     do {
       gameId = '';
-      while(gameId.length < 20) {
+      while(gameId.length < 5) {
         gameId += gameIdCharacters.substr(Math.floor(Math.random() * gameIdCharacters.length), 1);
       }
     } while(Object.keys(rooms).indexOf(gameId) !== -1);
@@ -189,7 +189,7 @@ client format: {
 
 app.get('/game/:gameId', (req, res, next) => {
   // get gameid parameter
-  var gameId = req.params.gameId;
+  var gameId = req.params.gameId.toLowerCase();
   var socket;
 
   // sync up to socket to join room (keep refreshing until socketId is updated)
