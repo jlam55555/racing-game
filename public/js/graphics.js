@@ -112,13 +112,15 @@ var views = [
 
 // update cars
 var map = [];
+var cars = [];
 function updateCars() {
   for(var i = 0; i < map.length; i++) {
     var car = new Car();
     car.mesh.position.x = map[i].x;
     car.mesh.position.y = map[i].y;
     car.mesh.position.z = map[i].z;
-    car.mesh.add(view.camera);
+    car.mesh.add(views[i].camera);
+    cars.push(car);
   }
 }
 
@@ -175,9 +177,12 @@ function animate() {
 
   // update coordinates of cars
   for(var i = 0; i < map.length; i++) {
-    cars[i].x = map[i].x;
-    cars[i].y = map[i].y;
-    cars[i].z = map[i].z;
+    if(cars[i]) {
+      cars[i].mesh.position.x = map[i].x;
+      cars[i].mesh.position.y = map[i].y;
+      cars[i].mesh.position.z = map[i].z;
+      console.log(cars[i].mesh.position, map[i].x, map[i].y, map[i].z);
+    }
   }
 
   // render views
