@@ -47,6 +47,9 @@ socket.on('updateNames', names => {
     nameDiv.appendChild(document.createTextNode(name || 'An unnamed driver'));
     namesElement.appendChild(nameDiv);
   }
+
+  // update cars and cameras
+  updateCars();
 });
 
 /**
@@ -88,7 +91,6 @@ window.addEventListener('deviceorientation', event => {
   * If host, get all user positions
   * @author Jonathan Lam
   */
-var map = [];
 socket.on('updatedMap', mapData => {
   map = mapData;
 });

@@ -110,17 +110,25 @@ var views = [
   }
 ];
 
-// init and animate
-init();
-animate();
+// update cars
+var map = [];
+function updateCars() {
+  for(var i = 0; i < map.length; i++) {
+    var car = new Car();
+    car.mesh.position.x = map[i].x;
+    car.mesh.position.y = map[i].y;
+    car.mesh.position.z = map[i].z;
+    car.mesh.add(view.camera);
+  }
+}
 
+// init function
 function init() {
   for(var view of views) {
     // create a camera for every view
     var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 1000);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
-    car.mesh.add(camera);
     view.camera = camera;
   }
 
@@ -165,6 +173,13 @@ function animate() {
   // wait until canvas ready to render
 	requestAnimationFrame(animate);
 
+  // update coordinates of cars
+  for(var i = 0; i < map.length; i++) {
+    cars[i].x = map[i].x;
+    cars[i].y = map[i].y;
+    cars[i].z = map[i].z;
+  }
+
   // render views
   render();
 }
@@ -196,3 +211,7 @@ function render() {
     renderer.render(scene, camera);
   }
 }
+
+// init and animate to start the game
+init();
+animate();
