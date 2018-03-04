@@ -73,13 +73,33 @@ var views = [
     fov: 30
   },
   {
-    left: 0.5,
+    left: 0,
     top: 0,
     width: 0.5,
     height: 1.0,
-    background: new THREE.Color(0.8, 0.8, 0),
-    position: [0, 50, 0],
-    rotation: [-Math.PI/2, 0, 0],
+    background: new THREE.Color(0.5, 0.5, 0.7),
+    position: [2.5, 7.5, 14.5], //pos of camera relative to car
+    rotation: [-.5, 0, 0],
+    fov: 30
+  },
+  {
+    left: 0,
+    top: 0,
+    width: 0.5,
+    height: 1.0,
+    background: new THREE.Color(0.5, 0.5, 0.7),
+    position: [2.5, 7.5, 14.5], //pos of camera relative to car
+    rotation: [-.5, 0, 0],
+    fov: 30
+  },
+  {
+    left: 0,
+    top: 0,
+    width: 0.5,
+    height: 1.0,
+    background: new THREE.Color(0.5, 0.5, 0.7),
+    position: [2.5, 7.5, 14.5], //pos of camera relative to car
+    rotation: [-.5, 0, 0],
     fov: 30
   }
 ];
