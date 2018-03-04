@@ -259,7 +259,7 @@ app.get('/game/:gameId', (req, res, next) => {
       console.log(`A user with socket id ${socket.id} has joined the room ${gameId}.`);
       console.log('test 5');
     }
-  }), 50);
+  }), 1000);
 });
 
 
