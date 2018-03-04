@@ -7,6 +7,8 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
+camera.position.z = 30;
+
 // created renderer
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -19,8 +21,6 @@ var cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
 //animating cube
-camera.position.z = 10;
-
 function animate() {
 	requestAnimationFrame( animate );
   cube.rotation.x -= .01;
@@ -44,8 +44,8 @@ scene.add(spotLight);
 
 //creating floor
 var floor = new THREE.Mesh(
-	new THREE.PlaneGeometry(20, 20, 20),
+	new THREE.PlaneGeometry(20, 100),
 	new THREE.MeshLambertMaterial({color: 0x808080})
 );
-//floor.rotation.x += MATH.PI / 2;
+floor.rotation.x -= 1; //set back to zero later, fix camera angle
 scene.add(floor);
