@@ -78,8 +78,8 @@ var views = [
     width: 0.5,
     height: 1.0,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [0, 0, 50],
-    rotation: [0, 0, 0],
+    position: [2.5, 7.5, 14.5], //pos of camera relative to car
+    rotation: [-.5, 0, 0],
     fov: 30
   },
   {
@@ -104,7 +104,7 @@ function init() {
     var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 1000);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
-    cube.add(camera)
+    carMesh.add(camera);
     view.camera = camera;
   }
 }
@@ -115,7 +115,7 @@ function init() {
   */
 function animate() {
 	requestAnimationFrame( animate );
-  cube.rotation.x -= .01;
+  //cube.rotation.x -= .01;
   // cube.position.z -= .01;
 
   // render views
