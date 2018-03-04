@@ -34,12 +34,8 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
-<<<<<<< HEAD
 /*
 //creating cube
-=======
-// creating cube
->>>>>>> 75485b4eb84e9ef32609ddc54311358389906ec1
 var geometry = new THREE.BoxGeometry(5,5,5);
 var material = new THREE.MeshLambertMaterial( {color: 0xCC0000 } );
 var cube = new THREE.Mesh(geometry, material);
@@ -118,11 +114,6 @@ function init() {
   * @author Rahul Kiefer
   */
 function animate() {
-<<<<<<< HEAD
-	requestAnimationFrame(animate);
-  //cube.rotation.x -= .01;
-	renderer.render(scene, camera);
-=======
 	requestAnimationFrame( animate );
   cube.rotation.x -= .01;
   // cube.position.z -= .01;
@@ -154,15 +145,10 @@ function render() {
 
     renderer.render(scene, camera);
   }
->>>>>>> 75485b4eb84e9ef32609ddc54311358389906ec1
 }
 
-<<<<<<< HEAD
 /*
 //creating spotLight
-=======
-// creating spotLight
->>>>>>> 75485b4eb84e9ef32609ddc54311358389906ec1
 var spotLight = new THREE.SpotLight( 0xffffff );
 spotLight.position.set(0, 10, 100);
 
@@ -185,10 +171,5 @@ var floor = new THREE.Mesh(
 	new THREE.PlaneGeometry(20, 100),
 	new THREE.MeshLambertMaterial({color: 0x808080})
 );
-<<<<<<< HEAD
 floor.rotation.x = 0; //set back to zero later, fix camera angle
 //scene.add(floor);
-=======
-floor.rotation.x -= 1; //set back to zero later, fix camera angle
- scene.add(floor);
->>>>>>> 75485b4eb84e9ef32609ddc54311358389906ec1
