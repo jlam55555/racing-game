@@ -52,12 +52,12 @@ function Car() {
 		bevelSegments: 1
 	}
 
-  this.geometry = new THREE.ExtrudeGeometry(carShape, carExtrudeSettings);
+  this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 	this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
-	this.mesh = new THREE.Mesh(carGeometry, carMaterial);
-	scene.add(carMesh);  
+	this.mesh = new THREE.Mesh(this.geometry, this.material);
+	scene.add(this.mesh);
 }
-
+var car = new Car();
 
 /**
   * Creating multiple views
@@ -120,7 +120,7 @@ function init() {
     var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 1000);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
-    carMesh.add(camera);
+    car.mesh.add(camera);
     view.camera = camera;
   }
 
