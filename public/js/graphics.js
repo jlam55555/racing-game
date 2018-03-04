@@ -13,7 +13,10 @@ var element = document.querySelector('#game');
 var width = element.getBoundingClientRect().width;
 var height = element.getBoundingClientRect().height;
 
-// created scene and camera
+/**
+	* Create scene and camera
+	* @author Rahul Kiefer
+	*/
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
@@ -22,7 +25,10 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
-// creating car
+/**
+	* Create the car
+	* @author Rahul Kiefer
+	*/
 var carLength = 5, carWidth = 3;
 
 var carShape = new THREE.Shape();
@@ -101,11 +107,17 @@ function init() {
   scene.add(spotLight);
   */
 
-  //creating ambient light
+	/**
+	  * Create ambient light
+	  * @author Rahul Kiefer
+	  */
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
   scene.add(ambLight);
 
-  // creating floor
+	/**
+	  * Create the floor
+	  * @author Rahul Kiefer
+	  */
   var floor = new THREE.Mesh(
   	new THREE.PlaneGeometry(20, 100),
   	new THREE.MeshLambertMaterial({color: 0x808080})
