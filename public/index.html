@@ -30,19 +30,6 @@
     <script src='/socket.io/socket.io.js'></script>
 
     <!--
-      include three.min.js library
-      @author Rahul kiefer
-      -->
-    <!-- Do we need this on homepage?
-    <script src='/js/three.min.js'></script> -->
-
-    <!--
-      include graphics script
-      @author Rahul Kiefer
-      -->
-    <!-- <script src='/js/graphics.js' defer></script> -->
-
-    <!--
       include main script
       @author Jonathan Lam
       -->
@@ -56,6 +43,7 @@
       @author Jonathan Lam
       -->
     <div class='deviceTypeContainer'>
+      <div class='recommended' id='desktopRecommendation'>Recommended:</div>
       <h1 class='deviceTypeHeader'>Are you a computer?</h1>
       <button id='createGame'>Create new game</button>
     </div>
@@ -65,6 +53,7 @@
       @author Jonathan Lam
       -->
     <div class='deviceTypeContainer'>
+      <div class='recommended' id='mobileRecommendation'>Recommended:</div>
       <h1 class='deviceTypeHeader'>Are you a smartphone or tablet?</h1>
       <div id='joinGameContainer'>
         <input type='text' id='joinGameId' placeholder='Game ID'>

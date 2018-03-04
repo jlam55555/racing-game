@@ -33,3 +33,28 @@ joinGameButton.addEventListener('click', () => {
     window.location.href = `${window.location.href}game/${joinGameId.value}`;
   }
 })
+
+
+/**
+  * Make recommendation
+  * @author Jonathan Lam
+  */
+// if large window size or deviceorientationevent not supported, recommend host
+if(window.innerWidth >= 1920 || !window.DeviceOrientationEvent) {
+  document.querySelector('#desktopRecommendation').style.display = 'block';
+}
+// else recommend client
+// this double-checks if deviceorientationevent works (and if it doesn't, recommends desktop)
+else {
+  if(window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', event => {
+      if(event.alpha === null) {
+        document.querySelector('#desktopRecommendation').style.display = 'block';
+      } else {
+        document.querySelector('#mobileRecommendation').style.display = 'block';
+      }
+    });
+  } else {
+    document.querySelector('#mobileRecommendation').style.display = 'block';
+  }
+}

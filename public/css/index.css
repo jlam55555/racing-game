@@ -25,6 +25,9 @@ body {
 .deviceTypeHeader {
   text-align: center;
 }
+.recommended {
+  display: none;
+}
 #joinGameContainer {
   display: flex;
   flex-direction: row;
