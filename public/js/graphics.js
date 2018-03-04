@@ -33,14 +33,15 @@ element.appendChild(renderer.domElement);
 	* @author Rahul Kiefer
 	*/
 function Car() {
+
 	this.shape = new THREE.Shape(); //drawing the car
 	this.shape.moveTo(0,0);
-	this.shape.lineTo(0,2); //from front bottom to front of hood
-	this.shape.lineTo(2,2); //from front of hood to windshield
-	this.shape.lineTo(2.5,3.25); //from bottom of windshield to top of windshield
-	this.shape.lineTo(4.5,3.25); //from top of windshield to top of back window
-	this.shape.lineTo(5,2); //from top of back window to bottom of back window
-	this.shape.lineTo(6,2); //from bottom of back window to top of trunk
+	this.shape.lineTo(0,1.5); //from front bottom to front of hood
+	this.shape.lineTo(2,1.5); //from front of hood to windshield
+	this.shape.lineTo(2.5,2.5); //from bottom of windshield to top of windshield
+	this.shape.lineTo(4.5,2.5); //from top of windshield to top of back window
+	this.shape.lineTo(5,1.5); //from top of back window to bottom of back window
+	this.shape.lineTo(6,1.5); //from bottom of back window to top of trunk
 	this.shape.lineTo(6,0); //from top of trunk to bottom of trunk
 
 	this.extrudeSettings = {
