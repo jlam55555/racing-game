@@ -205,7 +205,7 @@ function animate() {
       cars[i].mesh.position.x = map[i].x;
       cars[i].mesh.position.z = map[i].y;
       cars[i].mesh.position.y = map[i].z;
-      cars[i].mesh.rotation.y = -map[i].heading;
+      cars[i].mesh.rotation.y = map[i].heading;
     }
   }
 
