@@ -49,7 +49,7 @@ function Car() {
 
 	this.extrudeSettings = {
 		steps: 1,
-		amount: 3,
+		amount: 3, //WIDTH OF CAR!!!
 		bevelEnabled: false,
 		bevelThickness: 1,
 		bevelSize: 1,
@@ -89,26 +89,26 @@ var views = [
     rotation: [0, Math.PI/2, 0],
     fov: 30
   },
-  // car 2: right top
+  // car 2: right top (looking down on car from above)
   {
     left: 0.5,
     top: 0,
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [-20, 3, 2], //pos of camera relative to car
-    rotation: [-.01, -Math.PI/2, 0],
+		position: [3, 15, 1.5], //pos of camera relative to car
+    rotation: [-Math.PI/2, 0, 0],
     fov: 30
   },
-  // car 3: left bottom
+  // car 3: left bottom (looking at car from front)
   {
     left: 0,
     top: 0.5,
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+    position: [-10, 2, 1.5], //pos of camera relative to car
+    rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
     fov: 30
   },
   // car 4: right bottom
@@ -156,7 +156,10 @@ function init() {
     view.camera = camera;
   }
 
-  //creating spotLight
+	/**
+	  * Create spotlight
+	  * @author Rahul Kiefer
+
   var spotLight = new THREE.SpotLight( 0xffffff );
   spotLight.position.set(3.5, 5, 20);
 
@@ -168,21 +171,21 @@ function init() {
   spotLight.shadow.camera.fov = 30;
 
   scene.add(spotLight);
+	*/
 
 	/**
 	  * Create ambient light
 	  * @author Rahul Kiefer
-
+		*/
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
   scene.add(ambLight);
-	*/
 
 	/**
 	  * Create the floor
 	  * @author Rahul Kiefer
 	  */
   var floor = new THREE.Mesh(
-  	new THREE.PlaneGeometry(15, 15),
+  	new THREE.PlaneGeometry(500, 500),
   	new THREE.MeshLambertMaterial({color: 0x808080})
   );
 
