@@ -32,30 +32,32 @@ element.appendChild(renderer.domElement);
 	* Create the car
 	* @author Rahul Kiefer
 	*/
+function Car() {
+	this.shape = new THREE.Shape(); //drawing the car
+	this.shape.moveTo(0,0);
+	this.shape.lineTo(0,2); //from front bottom to front of hood
+	this.shape.lineTo(2,2); //from front of hood to windshield
+	this.shape.lineTo(2.5,3.25); //from bottom of windshield to top of windshield
+	this.shape.lineTo(4.5,3.25); //from top of windshield to top of back window
+	this.shape.lineTo(5,2); //from top of back window to bottom of back window
+	this.shape.lineTo(6,2); //from bottom of back window to top of trunk
+	this.shape.lineTo(6,0); //from top of trunk to bottom of trunk
 
-var carShape = new THREE.Shape();
-carShape.moveTo(0,0);
-carShape.lineTo(0,2); //from front bottom to front of hood
-carShape.lineTo(2,2); //from front of hood to windshield
-carShape.lineTo(2.5,3.25); //from bottom of windshield to top of windshield
-carShape.lineTo(4.5,3.25); //from top of windshield to top of back window
-carShape.lineTo(5,2); //from top of back window to bottom of back window
-carShape.lineTo(6,2); //from bottom of back window to top of trunk
-carShape.lineTo(6,0); //from top of trunk to bottom of trunk
+	this.extrudeSettings = {
+		steps: 1,
+		amount: 3,
+		bevelEnabled: false,
+		bevelThickness: 1,
+		bevelSize: 1,
+		bevelSegments: 1
+	}
 
-var carExtrudeSettings = {
-	steps: 1,
-	amount: 3,
-	bevelEnabled: false,
-	bevelThickness: 1,
-	bevelSize: 1,
-	bevelSegments: 1
+  this.geometry = new THREE.ExtrudeGeometry(carShape, carExtrudeSettings);
+	this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
+	this.mesh = new THREE.Mesh(carGeometry, carMaterial);
+	scene.add(carMesh);  
 }
 
-var carGeometry = new THREE.ExtrudeGeometry(carShape, carExtrudeSettings);
-var carMaterial = new THREE.MeshLambertMaterial({color:0xCC0000});
-var carMesh = new THREE.Mesh(carGeometry, carMaterial);
-scene.add(carMesh);
 
 /**
   * Creating multiple views
