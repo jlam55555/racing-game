@@ -62,8 +62,8 @@ function Car() {
 	scene.add(this.mesh);
 
   this.addCamera = camera => {
-      this.camera = camera;
-      this.mesh.add(camera);
+    this.camera = camera;
+    this.mesh.add(camera);
   };
 
   this.remove = () => {
@@ -71,6 +71,8 @@ function Car() {
     scene.remove(this.mesh);
   };
 }
+
+// initial car at 0,0 for testing
 var car = new Car();
 
 /**
@@ -132,6 +134,7 @@ function updateCars() {
   for(var i = 0; i < cars.length; i++) {
     cars[i].remove();
   }
+  cars = [];
 
   // make new ones
   for(var i = 0; i < map.length; i++) {
@@ -144,6 +147,9 @@ function updateCars() {
     car.addCamera(views[i].camera);
     cars.push(car);
   }
+
+  // get the number of cars
+  console.log(map, cars);
 }
 
 // init function
@@ -159,6 +165,7 @@ function init() {
 	/**
 	  * Create spotlight
 	  * @author Rahul Kiefer
+    */
 
   var spotLight = new THREE.SpotLight( 0xffffff );
   spotLight.position.set(3.5, 5, 20);
@@ -171,7 +178,6 @@ function init() {
   spotLight.shadow.camera.fov = 30;
 
   scene.add(spotLight);
-	*/
 
 	/**
 	  * Create ambient light

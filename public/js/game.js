@@ -83,9 +83,12 @@ window.addEventListener('deviceorientation', event => {
   }
 
   // send in deviceorientation
+  // comment this for testing on desktop
   socket.emit('deviceOrientation', forwardSpeed, turnSpeed);
 
 });
+// uncomment this for testing on desktop
+// setTimeout( () => socket.emit('deviceOrientation', 10, 50), 1000 );
 
 /**
   * If host, get all user positions
