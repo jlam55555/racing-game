@@ -198,9 +198,6 @@ function init() {
   * @author Rahul Kiefer
   */
 function animate() {
-  // wait until canvas ready to render
-	requestAnimationFrame(animate);
-
   // update coordinates of cars
   for(var i = 0; i < map.length; i++) {
     if(cars[i]) {
@@ -214,6 +211,9 @@ function animate() {
 
   // render views
   render();
+
+  // wait until canvas ready to render
+	requestAnimationFrame(animate);
 }
 
 /**
