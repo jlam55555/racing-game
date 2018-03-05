@@ -87,7 +87,7 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [20, 2, 1.5], //pos of camera relative to car
+    position: [20, 3, 1.5], //pos of camera relative to car
     rotation: [0, Math.PI/2, 0],
     fov: 30
   },
@@ -98,8 +98,8 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-		position: [3, 15, 1.5], //pos of camera relative to car
-    rotation: [-Math.PI/2, 0, 0],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
     fov: 30
   },
   // car 3: left bottom (looking at car from front)
@@ -109,8 +109,10 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [-10, 2, 1.5], //pos of camera relative to car
-    rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
+    // position: [-10, 3, 1.5], //pos of camera relative to car
+    // rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
     fov: 30
   },
   // car 4: right bottom
@@ -120,8 +122,10 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
+    // position: [3.25, 5, 20], //pos of camera relative to car
+    // rotation: [-.1, 0, 0],
     fov: 30
   }
 ];
