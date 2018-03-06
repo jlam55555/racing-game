@@ -238,9 +238,27 @@ function init() {
   scene.add(floor);
 
 	/**
-	* Create curved path
-	*
-	*/
+		* Create curved path
+		* @author Rahul Kiefer
+		*/
+	var path = new THREE.Path();
+
+		path.moveTo(150,50);
+		path.lineTo(150,150);
+		path.quadraticCurveTo(150,150,100,175);
+		path.quadraticCurveTo(100,175,50,150);
+		path.lineTo(50,50);
+		path.quadraticCurveTo(50,50,100,25);
+		path.quadraticCurveTo(100,25,150,50);
+
+		var pathPoints = path.getPoints();
+
+		var pathGeometry = new THREE.BufferGeometry().setFromPoints(pathPoints);
+		var pathMaterial = new THREE.LineBasicMaterial({color:0xFF1493});
+
+		var raceTrack = new THREE.Line(pathGeometry,pathMaterial);
+		scene.add(raceTrack);
+
 }
 
 /**
