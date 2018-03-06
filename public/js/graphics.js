@@ -87,9 +87,10 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [20, 2, 1.5], //pos of camera relative to car
+    position: [20, 3, 1.5], //pos of camera relative to car
     rotation: [0, Math.PI/2, 0],
-    fov: 30
+    fov: 30,
+    enabled: true
   },
   // car 2: right top (looking down on car from above)
   {
@@ -98,8 +99,8 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-		position: [3, 15, 1.5], //pos of camera relative to car
-    rotation: [-Math.PI/2, 0, 0],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
     fov: 30
   },
   // car 3: left bottom (looking at car from front)
@@ -109,8 +110,10 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [-10, 2, 1.5], //pos of camera relative to car
-    rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
+    // position: [-10, 3, 1.5], //pos of camera relative to car
+    // rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
     fov: 30
   },
   // car 4: right bottom
@@ -120,8 +123,10 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [3.25, 5, 20], //pos of camera relative to car
-    rotation: [-.1, 0, 0],
+		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
+    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
+    // position: [3.25, 5, 20], //pos of camera relative to car
+    // rotation: [-.1, 0, 0],
     fov: 30
   }
 ];
@@ -148,8 +153,43 @@ function updateCars() {
     cars.push(car);
   }
 
-  // get the number of cars
-  console.log(map, cars);
+  // disable all views after view 1 that are enabled
+  for(var i = 1; i < views.length; i++) {
+    views[i].enabled = i < cars.length;
+    console.log(views[i].enabled, i);
+  }
+  // set view cameras appropriately to number of cars
+  switch(cars.length) {
+    case 0:
+    case 1:
+      // if no cars or one car, set full-screen
+      views[0].width = 1.0;
+      views[0].height = 1.0;
+      break;
+    case 2:
+      // if two cars, set side by side
+      views[0].width = views[1].width = 0.5;
+      views[0].height = views[1].height = 1.0;
+      views[1].left = 0.5;
+      break;
+    case 3:
+      // if three or four cars, set to one-quarter screen size
+      views[0].width = views[1].width = views[2].width = 0.5;
+      views[0].height = views[1].height = views[3].height = 0.5;
+      views[1].left = 0.5;
+      views[2].top = 0.5;
+      views[2].left = 0.25;
+      break;
+    case 4:
+      views[0].width = views[1].width = views[2].width = views[3].width = 0.5;
+      views[0].height = views[1].height = views[3].height = views[3].height = 0.5;
+      views[1].left = 0.5;
+      views[2].top = 0.5;
+      views[2].left = 0.0;
+      views[3].top = 0.5;
+      views[3].left = 0.5;
+      break;
+  }
 }
 
 // init function
@@ -228,6 +268,9 @@ function animate() {
   */
 function render() {
   for(var view of views) {
+    // if disabled, skip
+    if(!view.enabled) continue;
+
     var camera = view.camera;
 
     // set viewport
