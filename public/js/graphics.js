@@ -53,7 +53,7 @@ function Car() {
 		bevelEnabled: true,
 		bevelThickness: .5,
 		bevelSize: .5,
-		bevelSegments: 5
+		bevelSegments: 2
 	}
 
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
@@ -230,7 +230,7 @@ function init() {
 	  * @author Rahul Kiefer
 	  */
   var floor = new THREE.Mesh(
-  	new THREE.PlaneGeometry(500, 500),
+  	new THREE.PlaneGeometry(200, 200),
   	new THREE.MeshLambertMaterial({color: 0x808080})
   );
 
