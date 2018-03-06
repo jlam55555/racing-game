@@ -156,7 +156,6 @@ function updateCars() {
   // disable all views after view 1 that are enabled
   for(var i = 1; i < views.length; i++) {
     views[i].enabled = i < cars.length;
-    console.log(views[i].enabled, i);
   }
   // set view cameras appropriately to number of cars
   switch(cars.length) {

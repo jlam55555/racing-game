@@ -124,6 +124,9 @@ io.on('connection', socket => {
       var room = rooms[socket.handshake.session.gameId];
       room.clients = room.clients.filter(client => client.socketId !== socket.id);
 
+      // update room host
+      io.sockets.sockets[room.host.socketId].emit('updatedMap', room.clients);
+
       // update other users
       io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
     }
