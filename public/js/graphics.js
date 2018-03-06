@@ -236,6 +236,11 @@ function init() {
 
   floor.rotation.x = -Math.PI/2; //set back to zero later, fix camera angle
   scene.add(floor);
+
+	/**
+	* Create curved path
+	*
+	*/
 }
 
 /**
