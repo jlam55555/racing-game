@@ -50,10 +50,10 @@ function Car() {
 	this.extrudeSettings = {
 		steps: 1,
 		amount: 3, //WIDTH OF CAR!!!
-		bevelEnabled: false,
-		bevelThickness: 1,
-		bevelSize: 1,
-		bevelSegments: 1
+		bevelEnabled: true,
+		bevelThickness: .5,
+		bevelSize: .5,
+		bevelSegments: 5
 	}
 
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
