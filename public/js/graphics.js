@@ -53,7 +53,7 @@ function Car() {
 		bevelEnabled: true,
 		bevelThickness: .5,
 		bevelSize: .5,
-		bevelSegments: 5
+		bevelSegments: 2
 	}
 
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
