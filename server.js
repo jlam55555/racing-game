@@ -143,7 +143,7 @@ io.on('connection', socket => {
   * @author Jonathan Lam
   */
 var speedMultiplier = 0.005;
-var turnMultiplier = 0.001;
+var turnMultiplier = 0.0001;
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
