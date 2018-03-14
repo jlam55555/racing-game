@@ -260,9 +260,9 @@ function init() {
   scene.add(floor);
 	*/
 
-	var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/grass_texture.jpg' );
+	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set( 10, 10 ); //??? what does this mean
+	floorTexture.repeat.set( 10, 10 );
 	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
 	var floorGeometry = new THREE.PlaneGeometry(200, 200, 10, 10);
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
