@@ -264,7 +264,7 @@ function init() {
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 	floorTexture.repeat.set( 10, 10 );
 	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-	var floorGeometry = new THREE.PlaneGeometry(200, 200, 10, 10);
+	var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 	//floor.position.y = -100;
 	floor.rotation.x = Math.PI / 2;
