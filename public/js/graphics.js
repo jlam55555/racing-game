@@ -222,19 +222,15 @@ function init() {
 	scene.add( skyBox );
 
 	/**
-	  * Create spotlight
+	  * Create point light
 	  * @author Rahul Kiefer
     */
 
-  var spotLight = new THREE.SpotLight( 0xffffff );
-  spotLight.position.set(3.5, 5, 20);
-
-  spotLight.shadow.mapSize.width = 1024;
-  spotLight.shadow.mapSize.height = 1024;
+  var spotLight = new THREE.PointLight( 0xffffff );
+  spotLight.position.set(0, 1000, 0);
 
   spotLight.shadow.camera.near = 500;
-  spotLight.shadow.camera.far = 4000;
-  spotLight.shadow.camera.fov = 30;
+  spotLight.shadow.camera.far = 10000;
 
   scene.add(spotLight);
 
