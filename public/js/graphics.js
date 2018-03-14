@@ -260,7 +260,7 @@ function init() {
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 	floorTexture.repeat.set( 10, 10 );
 	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-	var floorGeometry = new THREE.PlaneGeometry(200, 200, 10, 10);
+	var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 	//floor.position.y = -100;
 	floor.rotation.x = Math.PI / 2;
@@ -274,11 +274,11 @@ function init() {
 
 		path.moveTo(150,50);
 		path.lineTo(150,150);
-		path.quadraticCurveTo(150,150,100,175);
-		path.quadraticCurveTo(100,175,50,150);
+		path.quadraticCurveTo(150,175,100,175);
+		path.quadraticCurveTo(50,175,50,150);
 		path.lineTo(50,50);
-		path.quadraticCurveTo(50,50,100,25);
-		path.quadraticCurveTo(100,25,150,50);
+		path.quadraticCurveTo(50,25,100,25);
+		path.quadraticCurveTo(150,25,150,50);
 
 		var pathPoints = path.getPoints();
 
