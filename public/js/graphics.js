@@ -195,11 +195,31 @@ function updateCars() {
 function init() {
   for(var view of views) {
     // create a camera for every view
-    var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 1000);
+    var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 20000);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
     view.camera = camera;
   }
+
+  /**
+    * Create skybox
+    * Example used for template: stemkoski.github.io/Three.js/Skybox.html
+    * @author Jonathan Lam
+    */
+  var imagePrefix = "/assets/dawnmountain-";
+	var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+	var imageSuffix = ".png";
+	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );
+
+	var materialArray = [];
+	for (var i = 0; i < 6; i++)
+		materialArray.push( new THREE.MeshBasicMaterial({
+			map: new THREE.TextureLoader().load( imagePrefix + directions[i] + imageSuffix ),
+			side: THREE.BackSide
+		}));
+	var skyMaterial = materialArray; //new THREE.MeshFaceMaterial( materialArray );
+	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+	scene.add( skyBox );
 
 	/**
 	  * Create spotlight
