@@ -229,13 +229,26 @@ function init() {
 	  * Create the floor
 	  * @author Rahul Kiefer
 	  */
-  var floor = new THREE.Mesh(
+
+	/*
+	var floor = new THREE.Mesh(
   	new THREE.PlaneGeometry(200, 200),
   	new THREE.MeshLambertMaterial({color: 0x808080})
   );
 
-  floor.rotation.x = -Math.PI/2; //set back to zero later, fix camera angle
+  floor.rotation.x = -Math.PI/2;
   scene.add(floor);
+	*/
+
+	var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/grass_texture.jpg' );
+	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+	floorTexture.repeat.set( 10, 10 ); //??? what does this mean
+	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+	var floorGeometry = new THREE.PlaneGeometry(200, 200, 10, 10);
+	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	//floor.position.y = -100;
+	floor.rotation.x = Math.PI / 2;
+	scene.add(floor);
 
 	/**
 		* Create curved path
