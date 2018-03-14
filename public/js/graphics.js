@@ -278,11 +278,11 @@ function init() {
 
 		path.moveTo(150,50);
 		path.lineTo(150,150);
-		path.quadraticCurveTo(150,150,100,175);
-		path.quadraticCurveTo(100,175,50,150);
+		path.quadraticCurveTo(150,175,100,175);
+		path.quadraticCurveTo(50,175,50,150);
 		path.lineTo(50,50);
-		path.quadraticCurveTo(50,50,100,25);
-		path.quadraticCurveTo(100,25,150,50);
+		path.quadraticCurveTo(50,25,100,25);
+		path.quadraticCurveTo(150,25,150,50);
 
 		var pathPoints = path.getPoints();
 
