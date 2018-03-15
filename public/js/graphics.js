@@ -350,7 +350,8 @@ function init() {
 
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 
-		var raceTrackMesh = new THREE.Mesh( trackGeometry, new THREE.MeshPhongMaterial() );
+		var raceTrackMesh = new THREE.Mesh( trackGeometry, new THREE.MeshPhongMaterial({color:0xFF1493}) );
+		scene.add(raceTrackMesh);
 
 }
 
