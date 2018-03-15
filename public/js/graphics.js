@@ -50,7 +50,7 @@ function Car() {
 	this.extrudeSettings = {
 		steps: 1,
 		amount: 3, //WIDTH OF CAR!!!
-		bevelEnabled: true,
+		bevelEnabled: false, //set to false to make the texture mapping easier
 		bevelThickness: .5,
 		bevelSize: .5,
 		bevelSegments: 2
