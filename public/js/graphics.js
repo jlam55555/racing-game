@@ -47,32 +47,55 @@ function Car() {
 	this.shape.lineTo(6,hoodHeight); //from bottom of back window to top of trunk
 	this.shape.lineTo(6,0); //from top of trunk to bottom of trunk
 
+  // use basic extrudegeometry
 	this.extrudeSettings = {
 		steps: 1,
 		amount: 3, //WIDTH OF CAR!!!
-		bevelEnabled: true,
+		bevelEnabled: false,
 		bevelThickness: .5,
 		bevelSize: .5,
 		bevelSegments: 2
 	}
-
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
-	this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
+
+  // create material -- right now using wireframe for testing
+  this.material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true });
+	// this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
+
+  // create mesh and add to scene
 	this.mesh = new THREE.Mesh(this.geometry, this.material);
 	scene.add(this.mesh);
 
+  /**
+    * Attach a camera to a car when car joins
+    * Called in updateCars()
+    * @author Jonathan Lam
+    */
   this.addCamera = camera => {
     this.camera = camera;
     this.mesh.add(camera);
   };
 
+  /**
+    * Remove a car and its associated camera when car leaves
+    * Called in updateCars()
+    * @author Jonathan Lam
+    */
   this.remove = () => {
     this.mesh.remove(this.camera);
     scene.remove(this.mesh);
   };
+
+  // The below is testing for UV mapping -- remove when car is properly textured
+  for(var i = 0; i < this.geometry.faces.length; i++) {
+    console.log(this.geometry.faces[i]);
+  }
+  console.log(this.geometry.faces.length);
+  console.log(this.geometry.vertices);
 }
 
-// initial car at 0,0 for testing
+// initial car at 0,0 for testing and as a reference point
+// remove in production code
 var car = new Car();
 
 /**
