@@ -51,20 +51,34 @@ function Car() {
 	this.extrudeSettings = {
 		steps: 1,
 		amount: 3, //WIDTH OF CAR!!!
-<<<<<<< HEAD
-		bevelEnabled: false,
-=======
 		bevelEnabled: false, //set to false to make the texture mapping easier
->>>>>>> 00db8741bd60d5f9e5e614823c7cc25b5fdacfc2
 		bevelThickness: .5,
 		bevelSize: .5,
 		bevelSegments: 2
 	}
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 
-  // create material -- right now using wireframe for testing
-  this.material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true });
-	// this.material = new THREE.MeshLambertMaterial({color:0xCC0000});
+  // create material (lambert material for interaction with light)
+  var carTexture = new THREE.TextureLoader().load('/assets/carmap.jpg');
+  this.material = new THREE.MeshLambertMaterial({
+    map: carTexture
+  });
+
+  // The below is testing for UV mapping -- remove when car is properly textured
+  console.log(this.geometry.faceVertexUvs[0].length);
+  // this.geometry.faceVertexUvs[0] = [];
+  for(var i = 0; i < this.geometry.faces.length; i++) {
+    this.geometry.faceVertexUvs[0].push([
+      new THREE.Vector2(0, 0),
+      new THREE.Vector2(1, 0),
+      new THREE.Vector2(1, 0.5)
+    ]);
+  }
+  console.log(this.geometry.faceVertexUvs[0]);
+  console.log(this.geometry.faces.length);
+  console.log(this.geometry.vertices);
+
+  this.geometry.uvsNeedUpdate = true;
 
   // create mesh and add to scene
 	this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -89,13 +103,6 @@ function Car() {
     this.mesh.remove(this.camera);
     scene.remove(this.mesh);
   };
-
-  // The below is testing for UV mapping -- remove when car is properly textured
-  for(var i = 0; i < this.geometry.faces.length; i++) {
-    console.log(this.geometry.faces[i]);
-  }
-  console.log(this.geometry.faces.length);
-  console.log(this.geometry.vertices);
 }
 
 // initial car at 0,0 for testing and as a reference point
@@ -285,7 +292,7 @@ function init() {
 
 	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set( 10, 10 );
+	floorTexture.repeat.set( 1000, 1000 );
 	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
 	var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
