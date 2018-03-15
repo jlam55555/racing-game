@@ -225,7 +225,10 @@ function updateCars() {
   }
 }
 
-// init function
+/**
+	* Create init function
+	* @author Rahul Kiefer
+	*/
 function init() {
   for(var view of views) {
     // create a camera for every view
@@ -301,9 +304,11 @@ function init() {
 	scene.add(floor);
 
 	/**
-		* Create curved path
+		* Creating race track
 		* @author Rahul Kiefer
 		*/
+
+	/*
 	var path = new THREE.Path();
 
 		path.moveTo(150,50);
@@ -321,6 +326,31 @@ function init() {
 
 		var raceTrack = new THREE.Line(pathGeometry,pathMaterial);
 		scene.add(raceTrack);
+
+		*/
+
+		var track = new THREE.Shape();
+
+		track.moveTo(0,0);
+		track.lineTo(150,150);
+		track.quadraticCurveTo(150,175,100,175);
+		track.quadraticCurveTo(50,175,50,150);
+		track.lineTo(50,50);
+		track.quadraticCurveTo(50,25,100,25);
+		track.quadraticCurveTo(150,25,150,50);
+
+		var trackExtrudeSettings = {
+			amount: 10,
+			bevelEnabled: false,
+			bevelSegments: 2,
+			steps: 1,
+			bevelSize: 1,
+			bevelThickness: 1
+		};
+
+		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
+
+		var raceTrackMesh = new THREE.Mesh( trackGeometry, new THREE.MeshPhongMaterial() );
 
 }
 
