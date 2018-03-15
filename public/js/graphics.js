@@ -51,7 +51,11 @@ function Car() {
 	this.extrudeSettings = {
 		steps: 1,
 		amount: 3, //WIDTH OF CAR!!!
+<<<<<<< HEAD
 		bevelEnabled: false,
+=======
+		bevelEnabled: false, //set to false to make the texture mapping easier
+>>>>>>> 00db8741bd60d5f9e5e614823c7cc25b5fdacfc2
 		bevelThickness: .5,
 		bevelSize: .5,
 		bevelSegments: 2
@@ -245,7 +249,7 @@ function init() {
 	scene.add( skyBox );
 
 	/**
-	  * Create point light
+	  * Create spot light
 	  * @author Rahul Kiefer
     */
 
