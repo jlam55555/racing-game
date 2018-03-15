@@ -222,7 +222,7 @@ function init() {
 	scene.add( skyBox );
 
 	/**
-	  * Create point light
+	  * Create spot light
 	  * @author Rahul Kiefer
     */
 
