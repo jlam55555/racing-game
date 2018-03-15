@@ -60,6 +60,9 @@ function Car() {
 
   // create material (lambert material for interaction with light)
   var carTexture = new THREE.TextureLoader().load('/assets/carmap.jpg');
+  carTexture.wrapS = carTexture.wrapT = THREE.RepeatWrapping;
+  carTexture.offset.set(0, 0);
+  carTexture.repeat.set(2, 2);
   this.material = new THREE.MeshLambertMaterial({
     map: carTexture
   });
