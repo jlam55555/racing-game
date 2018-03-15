@@ -218,7 +218,10 @@ function updateCars() {
   }
 }
 
-// init function
+/**
+	* Create init function
+	* @author Rahul Kiefer
+	*/
 function init() {
   for(var view of views) {
     // create a camera for every view
