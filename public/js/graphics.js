@@ -334,15 +334,15 @@ function init() {
 		var track = new THREE.Shape();
 
 		track.moveTo(0,0);
-		track.lineTo(150,150);
-		track.quadraticCurveTo(150,175,100,175);
-		track.quadraticCurveTo(50,175,50,150);
-		track.lineTo(50,50);
-		track.quadraticCurveTo(50,25,100,25);
-		track.quadraticCurveTo(150,25,150,50);
+		track.lineTo(1500,1500);
+		track.quadraticCurveTo(1500,1750,1000,1750);
+		track.quadraticCurveTo(500,1750,500,1500);
+		track.lineTo(500,500);
+		track.quadraticCurveTo(500,250,1000,250);
+		track.quadraticCurveTo(1500,250,1500,500);
 
 		var trackExtrudeSettings = {
-			amount: 10,
+			amount: 5,
 			bevelEnabled: false,
 			bevelSegments: 2,
 			steps: 1,
