@@ -285,16 +285,6 @@ function init() {
 	  * @author Rahul Kiefer
 	  */
 
-	/*
-	var floor = new THREE.Mesh(
-  	new THREE.PlaneGeometry(200, 200),
-  	new THREE.MeshLambertMaterial({color: 0x808080})
-  );
-
-  floor.rotation.x = -Math.PI/2;
-  scene.add(floor);
-	*/
-
 	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 	floorTexture.repeat.set( 1000, 1000 );
@@ -308,27 +298,6 @@ function init() {
 	/**
 		* Creating race track
 		* @author Rahul Kiefer
-		*/
-
-	/*
-	var path = new THREE.Path();
-
-		path.moveTo(150,50);
-		path.lineTo(150,150);
-		path.quadraticCurveTo(150,175,100,175);
-		path.quadraticCurveTo(50,175,50,150);
-		path.lineTo(50,50);
-		path.quadraticCurveTo(50,25,100,25);
-		path.quadraticCurveTo(150,25,150,50);
-
-		var pathPoints = path.getPoints();
-
-		var pathGeometry = new THREE.BufferGeometry().setFromPoints(pathPoints);
-		var pathMaterial = new THREE.LineBasicMaterial({color:0xFF1493});
-
-		var raceTrack = new THREE.Line(pathGeometry,pathMaterial);
-		scene.add(raceTrack);
-
 		*/
 
 		var track = new THREE.Shape();
@@ -350,9 +319,15 @@ function init() {
 			bevelThickness: 1
 		};
 
+		var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
+		trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
+		trackTexture.repeat.set( 10, 10 );
+
+		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE. DoubleSide} );
+
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 
-		var raceTrackMesh = new THREE.Mesh( trackGeometry, new THREE.MeshPhongMaterial({color:0xFF1493}) );
+		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial}) );
 
 		raceTrackMesh.rotation.x = Math.PI / 2;
 		raceTrackMesh.position.y = 0;
