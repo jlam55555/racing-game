@@ -333,7 +333,7 @@ function init() {
 
 		var track = new THREE.Shape();
 
-		track.moveTo(0,0);
+		track.moveTo(1500,500);
 		track.lineTo(1500,1500);
 		track.quadraticCurveTo(1500,1750,1000,1750);
 		track.quadraticCurveTo(500,1750,500,1500);
