@@ -60,7 +60,7 @@ function Car() {
 
   // create material (lambert material for interaction with light)
   this.materials = [];
-  for(var i = 0; i < 28; i++) {
+  for(var i = 0; i < 2; i++) {
     this.materials.push(
       new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load(`/assets/map/map${i+1}.png`) })
     );
