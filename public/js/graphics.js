@@ -267,7 +267,6 @@ function init() {
 	  * Create spot light
 	  * @author Rahul Kiefer
     */
-
   var spotLight = new THREE.PointLight( 0xffffff );
   spotLight.position.set(0, 1000, 0);
 
@@ -287,7 +286,6 @@ function init() {
 	  * Create the floor
 	  * @author Rahul Kiefer
 	  */
-
 	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
 	floorTexture.repeat.set( 1000, 1000 );
@@ -302,7 +300,6 @@ function init() {
 		* Creating race track
 		* @author Rahul Kiefer
 		*/
-
 		var track = new THREE.Shape();
 
 		track.moveTo(150,50);
@@ -326,11 +323,9 @@ function init() {
 		trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
 		trackTexture.repeat.set( 10, 10 );
 
-		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE. DoubleSide} );
-
+		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
-
-		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial}) );
+		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
 		raceTrackMesh.rotation.x = Math.PI / 2;
 		raceTrackMesh.position.y = 0;
