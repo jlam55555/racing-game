@@ -356,6 +356,9 @@ function init() {
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 
 		var raceTrackMesh = new THREE.Mesh( trackGeometry, new THREE.MeshPhongMaterial({color:0xFF1493}) );
+
+		raceTrackMesh.rotation.x = Math.PI / 2;
+		raceTrackMesh.position.y = 0;
 		scene.add(raceTrackMesh);
 
 }
