@@ -59,32 +59,31 @@ function Car() {
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 
   // create material (lambert material for interaction with light)
-  var carTexture = new THREE.TextureLoader().load('/assets/carmap.jpg');
-  carTexture.wrapS = carTexture.wrapT = THREE.RepeatWrapping;
-  carTexture.offset.set(0, 0);
-  carTexture.repeat.set(2, 2);
-  this.material = new THREE.MeshLambertMaterial({
-    map: carTexture
-  });
+  this.materials = [];
+  for(var i = 0; i < 28; i++) {
+    this.materials.push(
+      new THREE.MeshLambertMaterial({ map: new THREE.TextureLoader().load(`/assets/map/map${i+1}.png`) })
+    );
+  }
 
   // The below is testing for UV mapping -- remove when car is properly textured
   console.log(this.geometry.faceVertexUvs[0].length);
-  // this.geometry.faceVertexUvs[0] = [];
+  //this.geometry.faceVertexUvs[0] = [];
   for(var i = 0; i < this.geometry.faces.length; i++) {
     this.geometry.faceVertexUvs[0].push([
       new THREE.Vector2(0, 0),
-      new THREE.Vector2(1, 0),
-      new THREE.Vector2(1, 0.5)
+      new THREE.Vector2(0, 3*4/5),
+      new THREE.Vector2(1, 3*4/5)
     ]);
   }
-  console.log(this.geometry.faceVertexUvs[0]);
-  console.log(this.geometry.faces.length);
-  console.log(this.geometry.vertices);
+  // console.log(this.geometry.faceVertexUvs[0]);
+  // console.log(this.geometry.faces.length);
+  // console.log(this.geometry.vertices);
 
   this.geometry.uvsNeedUpdate = true;
 
   // create mesh and add to scene
-	this.mesh = new THREE.Mesh(this.geometry, this.material);
+	this.mesh = new THREE.Mesh(this.geometry, this.materials);
 	scene.add(this.mesh);
 
   /**
