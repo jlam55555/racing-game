@@ -1,4 +1,4 @@
-/**
+/*0*
   * graphics file
   * <p>
   * Critical functions: init(), animate(), render()
@@ -38,14 +38,15 @@ function Car() {
 	var carHeight = hoodHeight + .75; //distance between ground and roof
 
 	this.shape = new THREE.Shape(); //drawing the car
-	this.shape.moveTo(0,0);
+	this.shape.moveTo(0,-1);
 	this.shape.lineTo(0,hoodHeight); //from front bottom to front of hood
 	this.shape.lineTo(2,hoodHeight); //from front of hood to windshield
 	this.shape.lineTo(2.5,carHeight); //from bottom of windshield to top of windshield
 	this.shape.lineTo(4.5,carHeight); //from top of windshield to top of back window
 	this.shape.lineTo(5,hoodHeight); //from top of back window to bottom of back window
 	this.shape.lineTo(6,hoodHeight); //from bottom of back window to top of trunk
-	this.shape.lineTo(6,0); //from top of trunk to bottom of trunk
+	this.shape.lineTo(6,-1); //from top of trunk to bottom of trunk
+  this.shape.lineTo(0,-1);
 
   // use basic extrudegeometry
 	this.extrudeSettings = {
@@ -54,7 +55,9 @@ function Car() {
 		bevelEnabled: false, //set to false to make the texture mapping easier
 		bevelThickness: .5,
 		bevelSize: .5,
-		bevelSegments: 2
+		bevelSegments: 2,
+    material: 0,
+    extrudeMaterial: 1
 	}
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 
@@ -62,28 +65,26 @@ function Car() {
   this.materials = [];
   for(var i = 0; i < 2; i++) {
     var texture = new THREE.TextureLoader().load(`/assets/map/map${i+1}.png`);
-    texture.repeat.set(0.1369, 1/3);
-    texture.offset.set(0, 2/3);
-    this.materials.push(
-      new THREE.MeshLambertMaterial({ map: texture })
-    );
+    if(i == 1) {
+      // scaling for the extrude material
+      texture.repeat.set(1/2, 1/3);
+      texture.offset.set(0, 2/3);
+    } else {
+      // scaling for the side material
+      texture.repeat.set(1/6, 1/6);
+    }
+    this.materials.push( new THREE.MeshBasicMaterial({ map: texture }) );
   }
 
   // The below is testing for UV mapping -- remove when car is properly textured
-  console.log(this.geometry.faceVertexUvs[0].length);
-  //this.geometry.faceVertexUvs[0] = [];
+  var uv = this.geometry.faceVertexUvs[0][23];
+  console.log(uv);
+  this.geometry.faceVertexUvs[0] = [];
   for(var i = 0; i < this.geometry.faces.length; i++) {
-    this.geometry.faceVertexUvs[0].push([
-      new THREE.Vector2(0, 0),
-      new THREE.Vector2(0, 3*4/5),
-      new THREE.Vector2(1, 3*4/5)
-    ]);
+    this.geometry.faceVertexUvs[0].push(uv);
   }
   // console.log(this.geometry.faceVertexUvs[0]);
   // console.log(this.geometry.faces.length);
-  // console.log(this.geometry.vertices);
-
-  this.geometry.uvsNeedUpdate = true;
 
   // create mesh and add to scene
 	this.mesh = new THREE.Mesh(this.geometry, this.materials);
@@ -126,8 +127,12 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [20, 3, 1.5], //pos of camera relative to car
-    rotation: [0, Math.PI/2, 0],
+    position: [20, 3, 1.5], rotation: [0, Math.PI/2, 0],  // this is the normal view
+    position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT
+    position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM
+    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK
+    position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE
+    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP
     fov: 30,
     enabled: true
   },
@@ -330,10 +335,10 @@ function init() {
 
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 
-		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial}) );
+		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
 		raceTrackMesh.rotation.x = Math.PI / 2;
-		raceTrackMesh.position.y = 0;
+		raceTrackMesh.position.y = 0.1;
 		scene.add(raceTrackMesh);
 
 }
