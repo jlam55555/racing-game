@@ -77,13 +77,17 @@ function Car() {
   }
 
   // The below is testing for UV mapping -- remove when car is properly textured
-  var uv = this.geometry.faceVertexUvs[0][23];
+  console.log(this.geometry.faceVertexUvs[0]);
+  var uv = [
+    { x: 1, y: 1 },
+    { x: 2, y: 1 },
+    { x: 1, y: -2 }
+  ];
   console.log(uv);
   this.geometry.faceVertexUvs[0] = [];
   for(var i = 0; i < this.geometry.faces.length; i++) {
     this.geometry.faceVertexUvs[0].push(uv);
   }
-  // console.log(this.geometry.faceVertexUvs[0]);
   // console.log(this.geometry.faces.length);
 
   // create mesh and add to scene
