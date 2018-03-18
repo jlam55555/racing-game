@@ -29,51 +29,70 @@ renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
 /**
-	* Function to create a car
+	* Car class (a function as per JS standards). Create using 'new Car()'
+  * <p>
+  * Publicly available fields: .mesh (to change position and rotation)
+  * @todo   Make member fields private
+  * @return undefined
 	* @author Rahul Kiefer
 	*/
 function Car() {
 
-	var hoodHeight = 1.25; //height of a car's hood
-	var carHeight = hoodHeight + .75; //distance between ground and roof
+  /**
+    * Draw shape of car, and then extrude
+    * @author Rahul Kiefer
+    */
+	var hoodHeight = 1.25;               // height of a car's hood
+	var carHeight = hoodHeight + .75;    // distance between ground and roof
 
-	this.shape = new THREE.Shape(); //drawing the car
-	this.shape.moveTo(0,-1);
-	this.shape.lineTo(0,hoodHeight); //from front bottom to front of hood
-	this.shape.lineTo(2,hoodHeight); //from front of hood to windshield
-	this.shape.lineTo(2.5,carHeight); //from bottom of windshield to top of windshield
-	this.shape.lineTo(4.5,carHeight); //from top of windshield to top of back window
-	this.shape.lineTo(5,hoodHeight); //from top of back window to bottom of back window
-	this.shape.lineTo(6,hoodHeight); //from bottom of back window to top of trunk
-	this.shape.lineTo(6,-1); //from top of trunk to bottom of trunk
-  this.shape.lineTo(0,-1);
+  // drawing the car shape
+	this.shape = new THREE.Shape();
+	this.shape.moveTo(0, 0);
+	this.shape.lineTo(0, hoodHeight);    // from front bottom to front of hood
+	this.shape.lineTo(2, hoodHeight);    // from front of hood to windshield
+	this.shape.lineTo(2.5, carHeight);   // from bottom of windshield to top of windshield
+	this.shape.lineTo(4.5, carHeight);   // from top of windshield to top of back window
+	this.shape.lineTo(5, hoodHeight);    // from top of back window to bottom of back window
+	this.shape.lineTo(6, hoodHeight);    // from bottom of back window to top of trunk
+	this.shape.lineTo(6, 0);             // from top of trunk to bottom of trunk
+  this.shape.lineTo(0, 0);
 
   // use basic extrudegeometry
 	this.extrudeSettings = {
-		steps: 1,
-		amount: 3, //WIDTH OF CAR!!!
-		bevelEnabled: false, //set to false to make the texture mapping easier
-		bevelThickness: .5,
-		bevelSize: .5,
-		bevelSegments: 2,
-    material: 0,
-    extrudeMaterial: 1
+		steps: 1,               // extrudegeometry uses one intermediate shape
+		amount: 3,              // width of car
+		bevelEnabled: false,    // bevel set to false to make the texture (UV) mapping easier
+		// bevelThickness: .5,
+		// bevelSize: .5,
+		// bevelSegments: 2,
+    material: 0,            // first material (texture) in material array is for sides
+    extrudeMaterial: 1      // second material (texture) in material array is for the front, hood, windshield, top, rear windshield, rear hood, rear (and bottom)
 	}
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 
-  // create material (lambert material for interaction with light)
+  /**
+    * Create materials (lambert textures) with UV mapping for custom extrude geometry
+    * @TODO   See below
+    * @author Jonathan Lam
+    */
+
+  // load materials
   this.materials = [];
   for(var i = 0; i < 2; i++) {
+    // texture 1 (sides) is located at /assets/map/map1.png
+    // texture 2 (other faces) is located at /assets/map/map2.png
     var texture = new THREE.TextureLoader().load(`/assets/map/map${i+1}.png`);
     if(i == 1) {
       // scaling for the extrude material
+      // scale goes from x: 0-2, y: (-2)-1 (this is for the UV mapping to work)
       texture.repeat.set(1/2, 1/3);
       texture.offset.set(0, 2/3);
     } else {
       // scaling for the side material
+      // scale goes from x: 0-6, y: 0-2
       texture.repeat.set(1/6, 1/2);
     }
-    this.materials.push( new THREE.MeshBasicMaterial({ map: texture }) );
+    this.materials.push(new THREE.MeshLambertMaterial({ map: texture }));
   }
 
   /**
@@ -159,11 +178,11 @@ var views = [
     top: 0,
     width: 0.5,
     height: 0.5,
-    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
     position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM (for debug)
-    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP    (for debug)
     position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT  (for debug)
+    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP    (for debug)
     position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE   (for debug)
+    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
     position: [20, 3, 1.5], rotation: [0, Math.PI/2, 0],  // NORMAL (for prod)
     fov: 30,
     enabled: true
@@ -200,17 +219,27 @@ var views = [
   }
 ];
 
-// update cars
+/**
+  * updateCars() function
+  * This is called every time a user enters leaves (upon the 'updateNames' message from socket.io (see /public/js/game.js))
+  * @return undefined
+  * @author Jonathan Lam
+  */
+
+// map and car arrays to map (client positions) and cars (Car objects)
 var map = [];
 var cars = [];
+
+// updateCars function
 function updateCars() {
+
   // remove all cars ("reset" array)
   for(var i = 0; i < cars.length; i++) {
     cars[i].remove();
   }
   cars = [];
 
-  // make new ones
+  // make new cars ("refresh" the array)
   for(var i = 0; i < map.length; i++) {
     var car = new Car();
     // x and y are coordinates on flat plane in server
@@ -223,6 +252,7 @@ function updateCars() {
   }
 
   // disable all views after view 1 that are enabled
+  // i.e., the first view is default, even if no cars; the others are triggered by multiple people entering the game
   for(var i = 1; i < views.length; i++) {
     views[i].enabled = i < cars.length;
   }
@@ -262,7 +292,8 @@ function updateCars() {
 }
 
 /**
-	* Create init function
+	* init() function to set up views, objects
+  * @return undefined
 	* @author Rahul Kiefer
 	*/
 function init() {
@@ -275,25 +306,26 @@ function init() {
   }
 
   /**
-    * Create skybox
+    * Create skybox (side length of 5000)
     * Example used for template: stemkoski.github.io/Three.js/Skybox.html
     * @todo   Change images to match theme
     * @author Jonathan Lam
     */
-  var imagePrefix = "/assets/dawnmountain-";
-	var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-	var imageSuffix = ".png";
-	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );
+  var imagePrefix = '/assets/dawnmountain-';
+	var directions  = [ 'xpos', 'xneg', 'ypos', 'yneg', 'zpos', 'zneg' ];
+	var imageSuffix = '.png';
+	var skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
 
 	var materialArray = [];
-	for (var i = 0; i < 6; i++)
-		materialArray.push( new THREE.MeshBasicMaterial({
-			map: new THREE.TextureLoader().load( imagePrefix + directions[i] + imageSuffix ),
+	for (var i = 0; i < 6; i++) {
+		materialArray.push(new THREE.MeshBasicMaterial({
+			map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
 			side: THREE.BackSide
 		}));
-	var skyMaterial = materialArray; //new THREE.MeshFaceMaterial( materialArray );
-	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	scene.add( skyBox );
+  }
+	var skyMaterial = materialArray;
+	var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
+	scene.add(skyBox);
 
 	/**
 	  * Create spot light (sun, directly above)
@@ -308,7 +340,8 @@ function init() {
   scene.add(spotLight);
 
 	/**
-	  * Create ambient light
+	  * Create ambient light (is this necessary?)
+    * @todo   Remove?
 	  * @author Rahul Kiefer
 		*/
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
@@ -320,11 +353,10 @@ function init() {
 	  */
 	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set( 1000, 1000 );
+	floorTexture.repeat.set(1000, 1000);
 	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
 	var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	//floor.position.y = -100;
 	floor.rotation.x = Math.PI / 2;
 	scene.add(floor);
 
@@ -363,11 +395,12 @@ function init() {
 	raceTrackMesh.rotation.x = Math.PI / 2;
 	raceTrackMesh.position.y = 0.1;
 	scene.add(raceTrackMesh);
-
 }
 
 /**
-  * Run the animation
+  * Function animate() to run the animation
+  * This is run on every frame, by window.requestAnimationFrame()
+  * @return undefined
   * @author Rahul Kiefer
   */
 function animate() {
@@ -390,7 +423,7 @@ function animate() {
 }
 
 /**
-  * Render the scene
+  * render() function to render the scene by setting up each viewport (camera) as appropriate
   * @author Jonathan Lam
   */
 function render() {
@@ -420,6 +453,8 @@ function render() {
   }
 }
 
-// init and animate to start the game
+// initialize the scene
 init();
+
+// begin the simulation/animation/game
 animate();
