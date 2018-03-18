@@ -159,7 +159,6 @@ var views = [
     top: 0,
     width: 0.5,
     height: 0.5,
-    background: new THREE.Color(0.5, 0.5, 0.7),
     position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE   (for debug)
     position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
     position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM (for debug)
@@ -175,22 +174,18 @@ var views = [
     top: 0,
     width: 0.5,
     height: 0.5,
-    background: new THREE.Color(0.5, 0.5, 0.7),
-		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
-    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
+		position: [20, 3, 1.5],
+    rotation: [0, Math.PI/2, 0],
     fov: 30
   },
-  // car 3: left bottom (looking at car from front)
+  // car 3: left bottom
   {
     left: 0,
     top: 0.5,
     width: 0.5,
     height: 0.5,
-    background: new THREE.Color(0.5, 0.5, 0.7),
-		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
-    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
-    // position: [-10, 3, 1.5], //pos of camera relative to car
-    // rotation: [-Math.PI/2, -Math.PI/2, -Math.PI/2],
+		position: [20, 3, 1.5],
+    rotation: [0, Math.PI/2, 0],
     fov: 30
   },
   // car 4: right bottom
@@ -199,11 +194,8 @@ var views = [
     top: 0.5,
     width: 0.5,
     height: 0.5,
-    background: new THREE.Color(0.5, 0.5, 0.7),
-		position: [20, 3, 1.5], // [3, 15, 1.5], //pos of camera relative to car
-    rotation: [0, Math.PI/2, 0],//[-Math.PI/2, 0, 0],
-    // position: [3.25, 5, 20], //pos of camera relative to car
-    // rotation: [-.1, 0, 0],
+		position: [20, 3, 1.5],
+    rotation: [0, Math.PI/2, 0],
     fov: 30
   }
 ];
@@ -212,7 +204,7 @@ var views = [
 var map = [];
 var cars = [];
 function updateCars() {
-  // remove all cars
+  // remove all cars ("reset" array)
   for(var i = 0; i < cars.length; i++) {
     cars[i].remove();
   }
@@ -235,6 +227,7 @@ function updateCars() {
     views[i].enabled = i < cars.length;
   }
   // set view cameras appropriately to number of cars
+  // TODO: set these programatically
   switch(cars.length) {
     case 0:
     case 1:
@@ -284,6 +277,7 @@ function init() {
   /**
     * Create skybox
     * Example used for template: stemkoski.github.io/Three.js/Skybox.html
+    * @todo   Change images to match theme
     * @author Jonathan Lam
     */
   var imagePrefix = "/assets/dawnmountain-";
@@ -302,7 +296,7 @@ function init() {
 	scene.add( skyBox );
 
 	/**
-	  * Create spot light
+	  * Create spot light (sun, directly above)
 	  * @author Rahul Kiefer
     */
   var spotLight = new THREE.PointLight( 0xffffff );
@@ -335,40 +329,40 @@ function init() {
 	scene.add(floor);
 
 	/**
-		* Creating race track
+		* Creating race track from path
 		* @author Rahul Kiefer
 		*/
-		var track = new THREE.Shape();
+	var track = new THREE.Shape();
 
-		track.moveTo(150,50);
-		track.lineTo(150,150);
-		track.quadraticCurveTo(150,175,100,175);
-		track.quadraticCurveTo(50,175,50,150);
-		track.lineTo(50,50);
-		track.quadraticCurveTo(50,25,100,25);
-		track.quadraticCurveTo(150,25,150,50);
+	track.moveTo(150,50);
+	track.lineTo(150,150);
+	track.quadraticCurveTo(150,175,100,175);
+	track.quadraticCurveTo(50,175,50,150);
+	track.lineTo(50,50);
+	track.quadraticCurveTo(50,25,100,25);
+	track.quadraticCurveTo(150,25,150,50);
 
-		var trackExtrudeSettings = {
-			amount: 5,
-			bevelEnabled: false,
-			bevelSegments: 2,
-			steps: 1,
-			bevelSize: 1,
-			bevelThickness: 1
-		};
+	var trackExtrudeSettings = {
+		amount: 5,
+		bevelEnabled: false,
+		bevelSegments: 2,
+		steps: 1,
+		bevelSize: 1,
+		bevelThickness: 1
+	};
 
-		var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
-		trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
-		trackTexture.repeat.set( 10, 10 );
+	var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
+	trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
+	trackTexture.repeat.set( 10, 10 );
 
-		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
-		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
+	var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
+	var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 
-		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
+	var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
-		raceTrackMesh.rotation.x = Math.PI / 2;
-		raceTrackMesh.position.y = 0.1;
-		scene.add(raceTrackMesh);
+	raceTrackMesh.rotation.x = Math.PI / 2;
+	raceTrackMesh.position.y = 0.1;
+	scene.add(raceTrackMesh);
 
 }
 
