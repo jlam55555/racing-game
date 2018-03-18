@@ -7,13 +7,12 @@ fix background (hills)
 add sound effects
 
 ## CURRENT
+add comments to uv mapping (and pictures?)
 figure out how to programmatically add path
 figure out how to add texture to track (with trees in middle of loop)
 
 ## FIXES
-fix texture (uv mapping) on car (remove extra lines)
-clean up uv mapping (do it programatically)
-refine deviceorientationevent
+refine deviceorientationevent (make more intuitive)
 fix grass by changing the number of repetitions
 
 ## DONE

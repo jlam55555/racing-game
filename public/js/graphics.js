@@ -97,13 +97,36 @@ function Car() {
 
   /**
     * UV mapping for the car texture
+    * <p>
+    * Brief description of UV mapping: UV mapping is a system to get a 2D image
+    * wrapped around a 3D shape. Luckily, this is relatively easy for objects
+    * with flat faces (such as this car), which means that we simply have to
+    * translate coordinates from the 2D "map" to the 3D geometry.
+    * <p>
+    *
+    *   (0, 1)               (2, 1)     // The map is a square image with
+    *   +--------------------+          // the labelled (U, V) coordinates.
+    *   |                    |          // These specific (U, V) coordinates
+    *   |                    |          // were made to wrap around the car.
+    *   |                    |
+    *   |                    |
+    *   |                    |
+    *   |                    |
+    *   +--------------------+
+    *   (0, -2)              (2, -2)
+    *
+    * <p>
+    * Different 3D triangular "faces" of the car geometry, numbered 12-25, were
+    * programatically mapped to the corresponding (U, V) coordinates on the
+    * map.
+    * <p>
+    * Made with a LOT of painstaking trial-and-error. =/ I thought this
+    * deserves its own special comment.
+    *
     * @author Jonathan Lam
     */
 
-  // TODO: FIX THE EXTRA LINES
-  // TODO: ADD TO THE COMMENT ABOUT THE HOW THESE NUMBERS CAME ABOUT
-
-  // no change to sides (faceVertexUvs indeces 0-13)
+  // no change to sides (faceVertexUvs indeces 0-11)
   // no change to bottom (faceVertexUvs indeces 26-27)
 
   // side lengths correspond to the lengths of the sides of the car's Shape
