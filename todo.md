@@ -7,7 +7,7 @@ add sound effects
 
 ## CURRENT
 do texture (uv mapping) on car
-figure out how to programmatically add path
+figure out how to add texture to track (with trees in middle of loop)
 
 ## FIXES
 refine deviceorientationevent
