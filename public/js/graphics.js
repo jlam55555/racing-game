@@ -322,8 +322,7 @@ function init() {
 		var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
 		trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
 		trackTexture.repeat.set( 10, 10 );
-
-		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
+		var trackMaterial = new THREE.MeshBasicMaterial( {map: trackTexture, side: THREE.DoubleSide} );
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
 		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
