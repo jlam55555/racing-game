@@ -159,7 +159,6 @@ function Car() {
     }
 
     // add uv map to geometry
-    console.log(this.geometry.faceVertexUvs[0][i]);
     this.geometry.faceVertexUvs[0][i] = points;
   }
 
