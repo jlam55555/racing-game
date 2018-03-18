@@ -100,44 +100,50 @@ function Car() {
     * @author Jonathan Lam
     */
 
-  // TODO: CLEAN UP THIS CODE
-    // - make numbers into variables to make more exact, cleaner
-    // - do it programatically?
   // TODO: FIX THE EXTRA LINES
   // TODO: ADD TO THE COMMENT ABOUT THE HOW THESE NUMBERS CAME ABOUT
 
   // no change to sides (faceVertexUvs indeces 0-13)
   // no change to bottom (faceVertexUvs indeces 26-27)
 
-  // front
-  this.geometry.faceVertexUvs[0][24] = [ { x: 0, y: 1 }, { x: 0.2695, y: 1 }, { x: 0.2695, y: -2 } ];
-  this.geometry.faceVertexUvs[0][25] = [ { x: 0, y: 1 }, { x: 0, y: -2 }, { x: 0.2695, y: -2 } ];
+  // side lengths correspond to the lengths of the sides of the car's Shape
+  var sideLengths = [ 0, 1.25, 2, Math.sqrt(0.5*0.5 + 0.75*0.75), 2, Math.sqrt(0.5*0.5 + 0.75*0.75), 1, 1.25 ];
+  // cumulative lengths correspond to the length of the sides from the start of the car's Shape
+  var cumulativeLengths = sideLengths.map((e, index) => sideLengths.slice(0, index+1).reduce((accumulator, value) => accumulator + value));
+  // positions correspond to the scaled version of the cumulative lengths for the UV map
+  var positions = cumulativeLengths.map(length => length / cumulativeLengths[cumulativeLengths.length-1] * 2);
 
-  // front hood
-  this.geometry.faceVertexUvs[0][22] = [ { x: 0.2695, y: 1 }, { x: 0.6992, y: 1 }, { x: 0.6992, y: -2 } ];
-  this.geometry.faceVertexUvs[0][23] = [ { x: 0.2695, y: 1 }, { x: 0.2695, y: -2 }, { x: 0.6992, y: -2 } ];
+  // start from front, go to back (index 25 is front, index 14 is back)
+  for(var i = 25; i >= 12; i--) {
 
-  // front windshield
-  this.geometry.faceVertexUvs[0][20] = [ { x: 0.6992, y: 1 }, { x: 0.8945, y: 1 }, { x: 0.8945, y: -2 } ];
-  this.geometry.faceVertexUvs[0][21] = [ { x: 0.6992, y: 1 }, { x: 0.6992, y: -2 }, { x: 0.8945, y: -2 } ];
+    // generate correct set of UV map points in points array
+    var points;
 
-  // top
-  this.geometry.faceVertexUvs[0][18] = [ { x: 0.8945, y: 1 }, { x: 1.3242, y: 1 }, { x: 1.3242, y: -2 } ];
-  this.geometry.faceVertexUvs[0][19] = [ { x: 0.8945, y: 1 }, { x: 0.8945, y: -2 }, { x: 1.3242, y: -2 } ];
+    // even face numbers
+    if(i % 2 == 0) {
+      points = [
+        { x: positions[(25-i-1) / 2], y: 1 },
+        { x: positions[(25-i-1) / 2 + 1], y: 1 },
+        { x: positions[(25-i-1) / 2 + 1], y: -2 },
+      ];
+    }
+    // odd face numbers
+    else {
+      points = [
+        { x: positions[(25-i) / 2], y: 1 },
+        { x: positions[(25-i) / 2], y: -2 },
+        { x: positions[(25-i) / 2 + 1], y: -2 },
+      ];
+    }
 
-  // rear windshield
-  this.geometry.faceVertexUvs[0][16] = [ { x: 1.3242, y: 1 }, { x: 1.5195, y: 1 }, { x: 1.5195, y: -2 } ];
-  this.geometry.faceVertexUvs[0][17] = [ { x: 1.3242, y: 1 }, { x: 1.3242, y: -2 }, { x: 1.5195, y: -2 } ];
+    // add uv map to geometry
+    this.geometry.faceVertexUvs[0][i] = points;
+  }
 
-  // rear hood
-  this.geometry.faceVertexUvs[0][14] = [ { x: 1.5195, y: 1 }, { x: 1.7305, y: 1 }, { x: 1.7305, y: -2 } ];
-  this.geometry.faceVertexUvs[0][15] = [ { x: 1.5195, y: 1 }, { x: 1.5195, y: -2 }, { x: 1.7305, y: -2 } ];
-
-  // rear
-  this.geometry.faceVertexUvs[0][12] = [ { x: 1.7305, y: 1 }, { x: 2, y: 1 }, { x: 2, y: -2 } ];
-  this.geometry.faceVertexUvs[0][13] = [ { x: 1.7305, y: 1 }, { x: 1.7305, y: -2 }, { x: 2, y: -2 } ];
-
-  // create mesh and add to scene
+  /**
+    * Create mesh and add to scene
+    * @author Rahul Kiefer
+    */
 	this.mesh = new THREE.Mesh(this.geometry, this.materials);
 	scene.add(this.mesh);
 
