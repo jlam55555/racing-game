@@ -76,19 +76,47 @@ function Car() {
     this.materials.push( new THREE.MeshBasicMaterial({ map: texture }) );
   }
 
-  // The below is testing for UV mapping -- remove when car is properly textured
-  console.log(this.geometry.faceVertexUvs[0]);
-  var uv = [
-    { x: 1, y: 1 },
-    { x: 2, y: 1 },
-    { x: 1, y: -2 }
-  ];
-  console.log(uv);
-  this.geometry.faceVertexUvs[0] = [];
-  for(var i = 0; i < this.geometry.faces.length; i++) {
-    this.geometry.faceVertexUvs[0].push(uv);
-  }
-  // console.log(this.geometry.faces.length);
+  /**
+    * UV mapping for the car texture
+    * @author Jonathan Lam
+    */
+
+  // TODO: CLEAN UP THIS CODE
+    // - make numbers into variables to make more exact, cleaner
+    // - do it programatically?
+  // TODO: FIX THE EXTRA LINES
+  // TODO: ADD TO THE COMMENT ABOUT THE HOW THESE NUMBERS CAME ABOUT
+
+  // no change to sides (faceVertexUvs indeces 0-13)
+  // no change to bottom (faceVertexUvs indeces 26-27)
+
+  // front
+  this.geometry.faceVertexUvs[0][24] = [ { x: 0, y: 1 }, { x: 0.2695, y: 1 }, { x: 0.2695, y: -2 } ];
+  this.geometry.faceVertexUvs[0][25] = [ { x: 0, y: 1 }, { x: 0, y: -2 }, { x: 0.2695, y: -2 } ];
+
+  // front hood
+  this.geometry.faceVertexUvs[0][22] = [ { x: 0.2695, y: 1 }, { x: 0.6992, y: 1 }, { x: 0.6992, y: -2 } ];
+  this.geometry.faceVertexUvs[0][23] = [ { x: 0.2695, y: 1 }, { x: 0.2695, y: -2 }, { x: 0.6992, y: -2 } ];
+
+  // front windshield
+  this.geometry.faceVertexUvs[0][20] = [ { x: 0.6992, y: 1 }, { x: 0.8945, y: 1 }, { x: 0.8945, y: -2 } ];
+  this.geometry.faceVertexUvs[0][21] = [ { x: 0.6992, y: 1 }, { x: 0.6992, y: -2 }, { x: 0.8945, y: -2 } ];
+
+  // top
+  this.geometry.faceVertexUvs[0][18] = [ { x: 0.8945, y: 1 }, { x: 1.3242, y: 1 }, { x: 1.3242, y: -2 } ];
+  this.geometry.faceVertexUvs[0][19] = [ { x: 0.8945, y: 1 }, { x: 0.8945, y: -2 }, { x: 1.3242, y: -2 } ];
+
+  // rear windshield
+  this.geometry.faceVertexUvs[0][16] = [ { x: 1.3242, y: 1 }, { x: 1.5195, y: 1 }, { x: 1.5195, y: -2 } ];
+  this.geometry.faceVertexUvs[0][17] = [ { x: 1.3242, y: 1 }, { x: 1.3242, y: -2 }, { x: 1.5195, y: -2 } ];
+
+  // rear hood
+  this.geometry.faceVertexUvs[0][14] = [ { x: 1.5195, y: 1 }, { x: 1.7305, y: 1 }, { x: 1.7305, y: -2 } ];
+  this.geometry.faceVertexUvs[0][15] = [ { x: 1.5195, y: 1 }, { x: 1.5195, y: -2 }, { x: 1.7305, y: -2 } ];
+
+  // rear
+  this.geometry.faceVertexUvs[0][12] = [ { x: 1.7305, y: 1 }, { x: 2, y: 1 }, { x: 2, y: -2 } ];
+  this.geometry.faceVertexUvs[0][13] = [ { x: 1.7305, y: 1 }, { x: 1.7305, y: -2 }, { x: 2, y: -2 } ];
 
   // create mesh and add to scene
 	this.mesh = new THREE.Mesh(this.geometry, this.materials);
@@ -121,6 +149,7 @@ var car = new Car();
 
 /**
   * Creating multiple views
+  * @todo   Make this programatically instead of hardcoding it in, explain position and rotation metrics
   * @author Jonathan Lam
   */
 var views = [
@@ -131,12 +160,12 @@ var views = [
     width: 0.5,
     height: 0.5,
     background: new THREE.Color(0.5, 0.5, 0.7),
-    position: [20, 3, 1.5], rotation: [0, Math.PI/2, 0],  // this is the normal view
-    position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT
-    position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM
-    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK
-    position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE
-    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP
+    position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE   (for debug)
+    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
+    position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM (for debug)
+    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP    (for debug)
+    position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT  (for debug)
+    position: [20, 3, 1.5], rotation: [0, Math.PI/2, 0],  // NORMAL (for prod)
     fov: 30,
     enabled: true
   },
@@ -334,10 +363,7 @@ function init() {
 
 		var trackMaterial = new THREE.MeshBasicMaterial( {map: floorTexture, side: THREE.DoubleSide} );
 		var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
-<<<<<<< HEAD
 
-=======
->>>>>>> e424af4494c7b47e204762934090769331a263e6
 		var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
 		raceTrackMesh.rotation.x = Math.PI / 2;
