@@ -1,4 +1,4 @@
-/*0*
+/**
   * graphics file
   * <p>
   * Critical functions: init(), animate(), render()
@@ -14,65 +14,64 @@ var width = element.getBoundingClientRect().width;
 var height = element.getBoundingClientRect().height;
 
 /**
-	* Create scene and camera
-	* @author Rahul Kiefer
-	*/
+  * Create scene and camera
+  * @author Rahul Kiefer
+  */
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
 /**
-	* Create renderer
-	* @author Rahul Kiefer
-	*/
+  * Create renderer
+  * @author Rahul Kiefer
+  */
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 element.appendChild(renderer.domElement);
 
 /**
-	* Car class (a function as per JS standards). Create using 'new Car()'
+  * Car class (a function as per JS standards). Create using 'new Car()'
   * <p>
   * Publicly available fields: .mesh (to change position and rotation)
   * @todo   Make member fields private
   * @return undefined
-	* @author Rahul Kiefer
-	*/
+  * @author Rahul Kiefer
+  */
 function Car() {
 
   /**
     * Draw shape of car, and then extrude
     * @author Rahul Kiefer
     */
-	var hoodHeight = 1.25;               // height of a car's hood
-	var carHeight = hoodHeight + .75;    // distance between ground and roof
+  var hoodHeight = 1.25;               // height of a car's hood
+  var carHeight = hoodHeight + .75;    // distance between ground and roof
 
   // drawing the car shape
-	this.shape = new THREE.Shape();
-	this.shape.moveTo(0, 0);
-	this.shape.lineTo(0, hoodHeight);    // from front bottom to front of hood
-	this.shape.lineTo(2, hoodHeight);    // from front of hood to windshield
-	this.shape.lineTo(2.5, carHeight);   // from bottom of windshield to top of windshield
-	this.shape.lineTo(4.5, carHeight);   // from top of windshield to top of back window
-	this.shape.lineTo(5, hoodHeight);    // from top of back window to bottom of back window
-	this.shape.lineTo(6, hoodHeight);    // from bottom of back window to top of trunk
-	this.shape.lineTo(6, 0);             // from top of trunk to bottom of trunk
+  this.shape = new THREE.Shape();
+  this.shape.moveTo(0, 0);
+  this.shape.lineTo(0, hoodHeight);    // from front bottom to front of hood
+  this.shape.lineTo(2, hoodHeight);    // from front of hood to windshield
+  this.shape.lineTo(2.5, carHeight);   // from bottom of windshield to top of windshield
+  this.shape.lineTo(4.5, carHeight);   // from top of windshield to top of back window
+  this.shape.lineTo(5, hoodHeight);    // from top of back window to bottom of back window
+  this.shape.lineTo(6, hoodHeight);    // from bottom of back window to top of trunk
+  this.shape.lineTo(6, 0);             // from top of trunk to bottom of trunk
   this.shape.lineTo(0, 0);
 
   // use basic extrudegeometry
-	this.extrudeSettings = {
-		steps: 1,               // extrudegeometry uses one intermediate shape
-		amount: 3,              // width of car
-		bevelEnabled: false,    // bevel set to false to make the texture (UV) mapping easier
-		// bevelThickness: .5,
-		// bevelSize: .5,
-		// bevelSegments: 2,
+  this.extrudeSettings = {
+    steps: 1,               // extrudegeometry uses one intermediate shape
+    amount: 3,              // width of car
+    bevelEnabled: false,    // bevel set to false to make the texture (UV) mapping easier
+    // bevelThickness: .5,
+    // bevelSize: .5,
+    // bevelSegments: 2,
     material: 0,            // first material (texture) in material array is for sides
     extrudeMaterial: 1      // second material (texture) in material array is for the front, hood, windshield, top, rear windshield, rear hood, rear (and bottom)
-	}
+  }
   this.geometry = new THREE.ExtrudeGeometry(this.shape, this.extrudeSettings);
 
   /**
     * Create materials (lambert textures) with UV mapping for custom extrude geometry
-    * @TODO   See below
     * @author Jonathan Lam
     */
 
@@ -168,8 +167,8 @@ function Car() {
     * Create mesh and add to scene
     * @author Rahul Kiefer
     */
-	this.mesh = new THREE.Mesh(this.geometry, this.materials);
-	scene.add(this.mesh);
+  this.mesh = new THREE.Mesh(this.geometry, this.materials);
+  scene.add(this.mesh);
 
   /**
     * Attach a camera to a car when car joins
@@ -223,7 +222,7 @@ var views = [
     top: 0,
     width: 0.5,
     height: 0.5,
-		position: [20, 3, 1.5],
+    position: [20, 3, 1.5],
     rotation: [0, Math.PI/2, 0],
     fov: 30
   },
@@ -233,7 +232,7 @@ var views = [
     top: 0.5,
     width: 0.5,
     height: 0.5,
-		position: [20, 3, 1.5],
+    position: [20, 3, 1.5],
     rotation: [0, Math.PI/2, 0],
     fov: 30
   },
@@ -243,7 +242,7 @@ var views = [
     top: 0.5,
     width: 0.5,
     height: 0.5,
-		position: [20, 3, 1.5],
+    position: [20, 3, 1.5],
     rotation: [0, Math.PI/2, 0],
     fov: 30
   }
@@ -322,10 +321,10 @@ function updateCars() {
 }
 
 /**
-	* init() function to set up views, objects
+  * init() function to set up views, objects
   * @return undefined
-	* @author Rahul Kiefer
-	*/
+  * @author Rahul Kiefer
+  */
 function init() {
   for(var view of views) {
     // create a camera for every view
@@ -342,24 +341,24 @@ function init() {
     * @author Jonathan Lam
     */
   var imagePrefix = '/assets/dawnmountain-';
-	var directions  = [ 'xpos', 'xneg', 'ypos', 'yneg', 'zpos', 'zneg' ];
-	var imageSuffix = '.png';
-	var skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
+  var directions  = [ 'xpos', 'xneg', 'ypos', 'yneg', 'zpos', 'zneg' ];
+  var imageSuffix = '.png';
+  var skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
 
-	var materialArray = [];
-	for (var i = 0; i < 6; i++) {
-		materialArray.push(new THREE.MeshBasicMaterial({
-			map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
-			side: THREE.BackSide
-		}));
+  var materialArray = [];
+  for (var i = 0; i < 6; i++) {
+    materialArray.push(new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
+      side: THREE.BackSide
+    }));
   }
-	var skyMaterial = materialArray;
-	var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
-	scene.add(skyBox);
+  var skyMaterial = materialArray;
+  var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
+  scene.add(skyBox);
 
-	/**
-	  * Create spot light (sun, directly above)
-	  * @author Rahul Kiefer
+  /**
+    * Create spot light (sun, directly above)
+    * @author Rahul Kiefer
     */
   var spotLight = new THREE.PointLight( 0xffffff );
   spotLight.position.set(0, 1000, 0);
@@ -369,60 +368,60 @@ function init() {
 
   scene.add(spotLight);
 
-	/**
-	  * Create ambient light (is this necessary?)
+  /**
+    * Create ambient light (is this necessary?)
     * @todo   Remove?
-	  * @author Rahul Kiefer
-		*/
+    * @author Rahul Kiefer
+    */
   var ambLight = new THREE.AmbientLight(0xf5f5f5); //soft white light
   scene.add(ambLight);
 
-	/**
-	  * Create the floor
-	  * @author Rahul Kiefer
-	  */
-	var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
-	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set(1000, 1000);
-	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-	var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	floor.rotation.x = Math.PI / 2;
-	scene.add(floor);
+  /**
+    * Create the floor
+    * @author Rahul Kiefer
+    */
+  var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
+  floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+  floorTexture.repeat.set(1000, 1000);
+  var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+  var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
+  var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+  floor.rotation.x = Math.PI / 2;
+  scene.add(floor);
 
-	/**
-		* Creating race track from path
-		* @author Rahul Kiefer
-		*/
-	var track = new THREE.Shape();
+  /**
+    * Creating race track from path
+    * @author Rahul Kiefer
+    */
+  var track = new THREE.Shape();
 
-	track.moveTo(150,50);
-	track.lineTo(150,150);
-	track.quadraticCurveTo(150,175,100,175);
-	track.quadraticCurveTo(50,175,50,150);
-	track.lineTo(50,50);
-	track.quadraticCurveTo(50,25,100,25);
-	track.quadraticCurveTo(150,25,150,50);
+  track.moveTo(150,50);
+  track.lineTo(150,150);
+  track.quadraticCurveTo(150,175,100,175);
+  track.quadraticCurveTo(50,175,50,150);
+  track.lineTo(50,50);
+  track.quadraticCurveTo(50,25,100,25);
+  track.quadraticCurveTo(150,25,150,50);
 
-	var trackExtrudeSettings = {
-		amount: 5,
-		bevelEnabled: false,
-		bevelSegments: 2,
-		steps: 1,
-		bevelSize: 1,
-		bevelThickness: 1
-	};
+  var trackExtrudeSettings = {
+    amount: 5,
+    bevelEnabled: false,
+    bevelSegments: 2,
+    steps: 1,
+    bevelSize: 1,
+    bevelThickness: 1
+  };
 
-	var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
-	trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
-	trackTexture.repeat.set( 10, 10 );
-	var trackMaterial = new THREE.MeshBasicMaterial( {map: trackTexture, side: THREE.DoubleSide} );
-	var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
-	var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
+  var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
+  trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
+  trackTexture.repeat.set( 10, 10 );
+  var trackMaterial = new THREE.MeshBasicMaterial( {map: trackTexture, side: THREE.DoubleSide} );
+  var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
+  var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
-	raceTrackMesh.rotation.x = Math.PI / 2;
-	raceTrackMesh.position.y = 0.1;
-	scene.add(raceTrackMesh);
+  raceTrackMesh.rotation.x = Math.PI / 2;
+  raceTrackMesh.position.y = 0.1;
+  scene.add(raceTrackMesh);
 }
 
 /**
@@ -447,7 +446,7 @@ function animate() {
   render();
 
   // wait until canvas ready to render
-	requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 }
 
 /**
