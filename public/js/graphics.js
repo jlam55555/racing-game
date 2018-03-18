@@ -122,21 +122,22 @@ function Car() {
     // even face numbers
     if(i % 2 == 0) {
       points = [
-        { x: positions[(25-i-1) / 2], y: 1 },
         { x: positions[(25-i-1) / 2 + 1], y: 1 },
+        { x: positions[(25-i-1) / 2],     y: 1 },
         { x: positions[(25-i-1) / 2 + 1], y: -2 },
       ];
     }
     // odd face numbers
     else {
       points = [
-        { x: positions[(25-i) / 2], y: 1 },
-        { x: positions[(25-i) / 2], y: -2 },
+        { x: positions[(25-i) / 2],     y: 1 },
+        { x: positions[(25-i) / 2],     y: -2 },
         { x: positions[(25-i) / 2 + 1], y: -2 },
       ];
     }
 
     // add uv map to geometry
+    console.log(this.geometry.faceVertexUvs[0][i]);
     this.geometry.faceVertexUvs[0][i] = points;
   }
 
