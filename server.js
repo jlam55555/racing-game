@@ -141,17 +141,30 @@ io.on('connection', socket => {
 
 
 /**
-  * Do game updates (position, speed, and acceleration) every 10ms
-  * This happens here to ensure every person moves at the same speed
+  * Do game updates (position, speed, acceleration (friction), and heading (turn)) every 10ms. This happens here to ensure every person moves at the same speed.
+  * <p>
+  * The multipliers (below) are fine-tuned to make the game feel more realistic.
+  * <p>
+  * Equations:
+  * - Update acceleration: (simulated friction):  newAcceleration   = oldAcceleration - speed * frictionMultiplier
+  * - Update speed:                               newSpeed          = oldSpeed + acceleration * accelerationMultiplier
+  * - Update x position:                          newPlayerX        = oldPlayerX + Math.cos(heading) * speed * speedMultiplier
+  * - Update y position:                          newPlayerY        = oldPlayerY + Math.sin(heading) * speed * speedMultiplier
+  * - Update heading (direction):                 newPlayerHeading  = oldPlayerHeading + turnSpeed * speed * turnMultiplier
   * @author Jonathan Lam
   */
-var accelerationMultiplier = 0.01;
-var speedMultiplier = 0.005;
-var turnMultiplier = 0.0005;
+var accelerationMultiplier = 0.01;    // fraction of the input acceleration that goes into the accleration
+var frictionMultiplier = 0.01;        // fraction of the speed that the friction will go against
+var speedMultiplier = 0.005;          // fraction of the input speed that goes into the speed
+var turnMultiplier = 0.0002;          // fraction of the input turn that goes into the turn
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
     for(var client of rooms[room].clients) {
+
+      // add simulated friction
+      acceleration -= speed * frictionMultiplier;
+
       // update player speed
       client.speed += client.acceleration * accelerationMultiplier;
       // bound player speed between -180 and +180
