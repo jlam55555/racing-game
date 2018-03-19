@@ -163,7 +163,7 @@ setInterval(() => {
     for(var client of rooms[room].clients) {
 
       // add simulated friction
-      acceleration -= speed * frictionMultiplier;
+      acceleration -= client.speed * frictionMultiplier;
 
       // update player speed
       client.speed += client.acceleration * accelerationMultiplier;
