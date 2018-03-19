@@ -248,7 +248,7 @@ app.get('/game/:gameId', (req, res, next) => {
           x: 0,
           y: 0,
           z: 0,
-          acceleration: 0
+          acceleration: 0,
           speed: 0,
           heading: 0,
           turn: 0
