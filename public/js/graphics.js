@@ -419,7 +419,7 @@ function init() {
   var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
   raceTrackMesh.rotation.x = Math.PI / 2;
-  raceTrackMesh.position.y = 0.1;
+  raceTrackMesh.position.y = 0.01; //barely above the ground
   scene.add(raceTrackMesh);
 }
 
