@@ -155,8 +155,8 @@ setInterval(() => {
       // update player speed
       client.speed += client.acceleration * accelerationMultiplier;
       // bound player speed between -90 and +90
-      if(player.speed < -90) player.speed = -90;
-      if(player.speed > 90) player.speed = 90;
+      if(client.speed < -90) client.speed = -90;
+      if(client.speed > 90) client.speed = 90;
 
       // update player position (depends on heading)
       client.x += Math.cos(client.heading) * client.speed * speedMultiplier;
