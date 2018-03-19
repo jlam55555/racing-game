@@ -95,14 +95,14 @@ io.on('connection', socket => {
     // if host return
     if(!client) return;
 
-    // update client speed, heading
-    // speed is limited from -90 to +90
+    // update client acceleration, heading
+    // acceleration is limited from -90 to +90
     // heading is converted into radians
-    client.speed = -Math.max(-90, Math.min(90, forwardSpeed));
+    client.acceleration = -Math.max(-90, Math.min(90, forwardSpeed));
     client.turn = Math.PI/180 * turnSpeed;
 
-    // prevent invalid speeds and turn speeds
-    if(client.speed < -90 || client.speed > 90) client.speed = 0;
+    // prevent invalid accelerations and turn speeds
+    if(client.acceleration < -90 || client.acceleration > 90) client.acceleration = 0;
     if(client.turn < -90 || client.turn > 90) client.turn = 0;
   });
 
@@ -141,21 +141,28 @@ io.on('connection', socket => {
 
 
 /**
-  * Do game updates every 10ms
+  * Do game updates (position, speed, and acceleration) every 10ms
   * This happens here to ensure every person moves at the same speed
   * @author Jonathan Lam
   */
+var accelerationMultiplier = 0.01;
 var speedMultiplier = 0.005;
-var turnMultiplier = 0.0001;
+var turnMultiplier = 0.001;
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
     for(var client of rooms[room].clients) {
-      // movement depends on heading
+      // update player speed
+      client.speed += client.acceleration * accelerationMultiplier;
+      // bound player speed between -90 and +90
+      if(player.speed < -90) player.speed = -90;
+      if(player.speed > 90) player.speed = 90;
+
+      // update player position (depends on heading)
       client.x += Math.cos(client.heading) * client.speed * speedMultiplier;
       client.y += Math.sin(client.heading) * client.speed * speedMultiplier;
 
-      // turn proportional to the speed and the angle of the turn
+      // update player heading (turn speed is proportional to the speed and angle of turn)
       client.heading += client.turn * client.speed * turnMultiplier;
     }
 
@@ -241,6 +248,7 @@ app.get('/game/:gameId', (req, res, next) => {
           x: 0,
           y: 0,
           z: 0,
+          acceleration: 0
           speed: 0,
           heading: 0,
           turn: 0
