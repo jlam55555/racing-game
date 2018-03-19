@@ -382,7 +382,7 @@ function init() {
   var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
   floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
   floorTexture.repeat.set(1000, 1000);
-  var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+  var floorMaterial = new THREE.MeshLambertMaterial( { map: floorTexture, side: THREE.DoubleSide } );
   var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
   var floor = new THREE.Mesh(floorGeometry, floorMaterial);
   floor.rotation.x = Math.PI / 2;
@@ -414,7 +414,7 @@ function init() {
   var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
   trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
   trackTexture.repeat.set( 10, 10 );
-  var trackMaterial = new THREE.MeshBasicMaterial( {map: trackTexture, side: THREE.DoubleSide} );
+  var trackMaterial = new THREE.MeshLambertMaterial( {map: trackTexture, side: THREE.DoubleSide} );
   var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
   var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
 
