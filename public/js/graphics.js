@@ -392,6 +392,13 @@ function init() {
     * Creating race track from path
     * @author Rahul Kiefer
     */
+
+  /**
+    * race track as a fat line
+    * var trackGeo = new THREE.LineGeometry();
+      trackGeo.setPositions(positions);
+    */
+
   var track = new THREE.Shape();
 
   track.moveTo(150,50);
