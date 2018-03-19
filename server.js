@@ -147,14 +147,14 @@ io.on('connection', socket => {
   */
 var accelerationMultiplier = 0.01;
 var speedMultiplier = 0.005;
-var turnMultiplier = 0.001;
+var turnMultiplier = 0.0005;
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
     for(var client of rooms[room].clients) {
       // update player speed
       client.speed += client.acceleration * accelerationMultiplier;
-      // bound player speed between -90 and +90
+      // bound player speed between -180 and +180
       if(client.speed < -90) client.speed = -90;
       if(client.speed > 90) client.speed = 90;
 
