@@ -382,7 +382,7 @@ function init() {
   var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
   floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
   floorTexture.repeat.set(1000, 1000);
-  var floorMaterial = new THREE.MeshLambertMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+  var floorMaterial = new THREE.MeshLambertMaterial( { map: floorTexture, side: THREE.DoubleSide } ); //floor looks better as a MeshBasicMaterial
   var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
   var floor = new THREE.Mesh(floorGeometry, floorMaterial);
   floor.rotation.x = Math.PI / 2;
