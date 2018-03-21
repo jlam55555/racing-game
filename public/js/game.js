@@ -92,7 +92,9 @@ window.addEventListener('deviceorientation', event => {
 // setTimeout( () => socket.emit('deviceOrientation', 10, 50), 1000 );
 
 /**
-  * If host, get all user positions
+  * Get all client positions
+  * Host will show all
+  * Client will show view from just their car
   * @author Jonathan Lam
   */
 socket.on('updatedMap', mapData => {

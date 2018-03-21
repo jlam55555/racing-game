@@ -180,9 +180,15 @@ setInterval(() => {
     }
 
     // send data to host
-    var hostSocket;
-    if(rooms[room].host && (hostSocket = io.sockets.sockets[rooms[room].host.socketId]) !== undefined) {
-      hostSocket.emit('updatedMap', rooms[room].clients);
+    var socket;
+    if(rooms[room].host && (socket = io.sockets.sockets[rooms[room].host.socketId]) !== undefined) {
+      socket.emit('updatedMap', rooms[room].clients);
+    }
+    // send data to clients
+    for(var client of rooms[room].clients) {
+      if((socket = io.sockets.sockets[client.socketId]) !== undefined) {
+        socket.emit('updatedMap', rooms[room].clients);
+      }
     }
   }
 }, 10);
