@@ -1,5 +1,5 @@
 /**
-  * graphics file
+  * host graphics file
   * <p>
   * Critical functions: init(), animate(), render()
   * @author Rahul Kiefer
@@ -486,7 +486,7 @@ function render() {
   }
 }
 
-// initialize the scene
+// initialize the scene (both for clients and host)
 init();
 
 // begin the simulation/animation/game

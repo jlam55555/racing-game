@@ -37,10 +37,15 @@
     <script src='/js/three.min.js'></script>
 
     <!--
-      include graphics script
+      Includes the graphics script.
+      <p>
+      hostGraphics.js is for the computer (host). This includes views for all players, and sets up the basic scene.
+      <p>
+      clientGraphics.js is for the mobile device (client). This includes a simplified, single viewport that is shown on mobile devices.
       @author Rahul Kiefer
       -->
-    <script src='/js/graphics.js' defer></script>
+    <script src='/js/hostGraphics.js' defer></script>
+    <script src='/js/clientGraphics.js' defer></script>
 
     <!--
       include main script
