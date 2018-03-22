@@ -67,7 +67,7 @@ io.on('connection', socket => {
       socket.handshake.session.reload(() => {
         if(socket.handshake.session.host !== undefined) {
           clearInterval(hostInterval);
-          callback(socket.handshake.session.host === true);
+          callback(socket.handshake.session.host === true, socket.handshake.session.id);
         }
       });
     }, 50);

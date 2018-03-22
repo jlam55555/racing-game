@@ -26,11 +26,12 @@ socket.on('err', msg => {
   * @author Jonathan Lam
   */
 var isHost = false;
-socket.emit('isHost', isHostResponse => {
+socket.emit('isHost', (isHostResponse, socketId) => {
+
   if(!isHostResponse) {
 
     // overwrite main render function with client one
-    overwriteRender();
+    overwriteRender(socketId);
 
     // ask for name, send to server
     // dog names courtesy of https://www.care.com/c/stories/6095/101-real-and-funny-dog-names/
@@ -39,6 +40,8 @@ socket.emit('isHost', isHostResponse => {
     socket.emit('setName', name);
 
   }
+
+  // set host flag (true if host, false if client)
   isHost = isHostResponse;
 });
 
