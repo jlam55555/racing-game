@@ -32,11 +32,18 @@ element.appendChild(renderer.domElement);
   * Car class (a function as per JS standards). Create using 'new Car()'
   * <p>
   * Publicly available fields: .mesh (to change position and rotation)
+  * @param  id The id of the car (the socketId of the client) to correctly match the client camera to the car
   * @todo   Make member fields private
   * @return undefined
   * @author Rahul Kiefer
   */
-function Car() {
+function Car(id) {
+
+  /**
+    * Set id of car (to attach camera to correct car on mobile)
+    * @author Jonathan Lam
+    */
+  this.id = id;
 
   /**
     * Draw shape of car, and then extrude
@@ -121,7 +128,6 @@ function Car() {
     * <p>
     * Made with a LOT of painstaking trial-and-error. =/ I thought this
     * deserves its own special comment.
-    *
     * @author Jonathan Lam
     */
 
@@ -269,7 +275,7 @@ function updateCars() {
 
   // make new cars ("refresh" the array)
   for(var i = 0; i < map.length; i++) {
-    var car = new Car();
+    var car = new Car(map[i].socketId);
     // x and y are coordinates on flat plane in server
     // x and z are coordinates on flat plane in three.js
     car.mesh.position.x = map[i].x;

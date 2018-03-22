@@ -6,13 +6,26 @@
   * @author Jonathan Lam
   */
 
-// overwrite main render function (called when role is determined to be client)
-function overwriteRender(socketId) {
+/**
+  * Function overwriteRender to overwrite the main render function for a client
+  * device.
+  * <p>
+  * This is called when the user's car is created (after the first updateCars()
+  * in the 'updateNames' websocket event). It replaces the four-car view with a
+  * simple view from the windshield of the client's car.
+  * @param  id  socketId of the client; used to match the car
+  * @return none
+  * @author Jonathan Lam
+  */
+function overwriteRender(id) {
 
-  // create camera, attach to correct car (match socket ids)
+  // create camera
   var camera = new THREE.PerspectiveCamera(30, width/height, 0.1, 20000);
-  var car = cars.find(car => car.socketId === socketId);
-  car.addCamera(camera);
+  camera.position.set(0, 3, 1.5);
+  camera.rotation.set(0, Math.PI/2, 0);
+
+  // attach camera to car (match socket ids)
+  cars.find(car => car.id === id).addCamera(camera);
 
   // simple, single camera full-screen viewport
   render = function() {
