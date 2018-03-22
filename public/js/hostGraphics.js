@@ -405,21 +405,21 @@ function init() {
       (150,50)
     ];
 
-    var trackGeo = new THREE.LineGeometry();
-
-    trackGeo.setPositions(positions);
-
-    matLine = new THREE.LineMaterial( {
-      color: 0xffffff,
-      linewidth: 50, //in px
-      vertexColors: THREE.vertexColors,
-      dashed: false
-    } );
-    
-    raceTrack = new THREE.Line2(trackGeo, matLine);
-    raceTrack.computeLineDistances();
-    raceTrack.scale.set(1, 1, 1);
-    scene.add(raceTrack);
+    // var trackGeo = new THREE.LineGeometry();
+    //
+    // trackGeo.setPositions(positions);
+    //
+    // matLine = new THREE.LineMaterial( {
+    //   color: 0xffffff,
+    //   linewidth: 50, //in px
+    //   vertexColors: THREE.vertexColors,
+    //   dashed: false
+    // } );
+    //
+    // raceTrack = new THREE.Line2(trackGeo, matLine);
+    // raceTrack.computeLineDistances();
+    // raceTrack.scale.set(1, 1, 1);
+    // scene.add(raceTrack);
 
 
   /*
