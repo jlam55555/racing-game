@@ -400,7 +400,7 @@ function init() {
     */
 
 
-    race track as a fat line
+    // race track as a fat line
     var trackPositions = [
       (150,50),
       (150,150),
@@ -413,7 +413,7 @@ function init() {
 
     var trackGeo = new THREE.LineGeometry();
 
-    trackGeo.setPositions(positions);
+    trackGeo.setPositions(trackPositions);
 
     matLine = new THREE.LineMaterial( {
       color: 0xffffff,
