@@ -6,6 +6,8 @@ fix background (hills)
 add sound effects
 
 ## CURRENT
+edit look of game.html
+move three.js files into their own directory
 figure out how to programmatically add path
 figure out how to add texture to track (with trees in middle of loop)
 
