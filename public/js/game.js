@@ -19,7 +19,7 @@ socket.on('gameId', gameId => document.querySelector('#gameId').textContent = ga
 socket.on('err', msg => {
   document.querySelector('#gameIdContainer').style.display = 'none';
   document.querySelector('#names').style.display = 'none';
-  document.querySelector('#error').textContent = `Error: ${msg}.`;
+  document.querySelector('#error').textContent = `Error: ${msg}`;
 });
 
 /**

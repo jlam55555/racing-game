@@ -400,7 +400,7 @@ function init() {
     */
 
 
-    //race track as a fat line
+    race track as a fat line
     var trackPositions = [
       (150,50),
       (150,150),

@@ -27,6 +27,7 @@ canvas {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  flex-basis: 4em;
 }
 .name {
   flex-basis: 50%;
