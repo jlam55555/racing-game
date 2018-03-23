@@ -10,7 +10,7 @@
   */
 body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 /**
@@ -24,6 +24,12 @@ canvas {
 }
 #controls {
   flex: 0 1 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.name {
+  flex-basis: 50%;
 }
 #game {
   flex: 1 0 0;

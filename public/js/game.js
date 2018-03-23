@@ -18,7 +18,8 @@ socket.on('gameId', gameId => document.querySelector('#gameId').textContent = ga
   */
 socket.on('err', msg => {
   document.querySelector('#gameIdContainer').style.display = 'none';
-  document.querySelector('#error').textContent = `Error: ${msg}`
+  document.querySelector('#names').style.display = 'none';
+  document.querySelector('#error').textContent = `Error: ${msg}.`;
 });
 
 /**
@@ -55,6 +56,7 @@ socket.on('updateNames', names => {
   namesElement.innerHTML = '';
   for(var name of names) {
     var nameDiv = document.createElement('div');
+    nameDiv.classList.add('name');
     nameDiv.appendChild(document.createTextNode(name || 'An unnamed driver'));
     namesElement.appendChild(nameDiv);
   }
