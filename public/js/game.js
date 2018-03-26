@@ -61,6 +61,10 @@ socket.emit('isHost', (isHostResponse, socketIdResponse) => {
 var namesElement = document.querySelector('#names');
 socket.on('updateNames', names => {
 
+  /**
+    * Position name on top left of correct screen
+    * @author Jonathan Lam
+    */
   var positions;
   switch(names.length) {
     // one person joined: full screen
@@ -85,13 +89,15 @@ socket.on('updateNames', names => {
       break;
   }
 
+  var namesElement = document.querySelector('#names');
+  namesElement.innerHTML = '';
   for(var i = 0; i < names.length; i++) {
     var nameDiv = document.createElement('div');
     nameDiv.classList.add('name');
-    nameDiv.style.position.left = positions[i][0];
-    nameDiv.style.position.top = positions[i][1];
-    nameDiv.appendChild(document.createTextNode(name || 'An unnamed driver'));
-    document.querySelector('#names').appendChild(nameDiv);
+    nameDiv.style.left = positions[i][0] + 40 + 'px'; // added padding 40px
+    nameDiv.style.top = positions[i][1] + 40 + document.querySelector('#controls').clientHeight + 'px';  // added padding 40px plus height of controls
+    nameDiv.appendChild(document.createTextNode(names[i] || 'An unnamed driver'));
+    namesElement.appendChild(nameDiv);
   }
 
   // update cars and cameras
