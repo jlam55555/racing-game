@@ -11,6 +11,7 @@
 body {
   display: flex;
   flex-direction: column;
+  font-family: cousine, monospace;
 }
 
 /**
@@ -24,11 +25,25 @@ body {
   flex-basis: 4em;
 }
 #homeLink {
-  flex-basis: 1em;
+  flex-basis: 2em;
+  font-size: 2em;
+  padding: 0.5em;
   background-color: darkgrey;
 }
 #gameIdContainer {
   flex: 1 0 0;
+}
+#gameIdInnerContainer {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+}
+.gameIdChar {
+  display: inline-block;
+  margin: 0 0.125em;
+  padding: 0.25em;
+  background-color: lightgrey;
+  border-radius: 0.125em;
 }
 .vCenter {
   display: flex;

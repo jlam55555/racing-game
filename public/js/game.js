@@ -10,7 +10,14 @@
 var socket = io();
 
 // get game id to show on element #gameId
-socket.on('gameId', gameId => document.querySelector('#gameId').textContent = gameId);
+socket.on('gameId', gameId => {
+  var gameIdText = "";
+  var gameIdChars = gameId.split("");
+  for(var char of gameIdChars) {
+    gameIdText += `<span class='gameIdChar'>${char.toUpperCase()}</span>`;
+  }
+  document.querySelector('#gameId').innerHTML = gameIdText;
+});
 
 /**
   * Get errors on joining room

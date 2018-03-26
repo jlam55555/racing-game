@@ -17,6 +17,12 @@
     <meta name='keywords' content='multiplayer, racing, game, CSP, computer science principles, jonathan lam, rahul kiefer'>
 
     <!--
+      include Cousine monospace font
+      @author Jonathan Lam
+      -->
+    <link href="https://fonts.googleapis.com/css?family=Cousine" rel="stylesheet">
+
+    <!--
       include stylesheets
       @author Jonathan Lam
       -->
@@ -39,7 +45,7 @@
     <!--
       include THREE.js line library files (not included in main THREE.js library) to make race track
       @author Rahul Kiefer
-    -->
+      -->
     <script src='/js/LineSegmentsGeometry.js'></script>
     <script src='/js/LineGeometry.js'></script>
     <script src='/js/WireframeGeometry2.js'></script>
@@ -47,6 +53,12 @@
     <script src='/js/LineSegments2.js'></script>
     <script src='/js/Line2.js'></script>
     <script src='/js/Wireframe.js'></script>
+
+    <!--
+      include FontAwesome icon set (to make website look pretty)
+      @author Jonathan Lam
+      -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 
     <!--
       Includes the graphics script.
@@ -75,13 +87,19 @@
     <div id='controls'>
 
       <!-- Link to return to homepage -->
-      <a id='homeLink' href='/' class='vCenter'>Back</a>
+      <a id='homeLink' href='/' class='vCenter'>
+        <span class='fas fa-chevron-circle-left'></span>
+      </a>
 
       <!-- Shows errors if they exist on entry -->
       <div id='error' class='vCenter'></div>
 
       <!-- Show game ID -->
-      <div id='gameIdContainer' class='vCenter'>ID: <span id='gameId'></span></div>
+      <div id='gameIdContainer' class='vCenter'>
+        <span id="gameIdInnerContainer">
+          ID: <span id='gameId'></span>
+        </span>
+      </div>
 
       <!-- Show list of names -->
       <div id='names'></div>
