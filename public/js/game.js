@@ -60,12 +60,38 @@ socket.emit('isHost', (isHostResponse, socketIdResponse) => {
   */
 var namesElement = document.querySelector('#names');
 socket.on('updateNames', names => {
-  namesElement.innerHTML = '';
-  for(var name of names) {
+
+  var positions;
+  switch(names.length) {
+    // one person joined: full screen
+    case 1:
+      positions = [ [ 0, 0 ] ];
+      break;
+    // two people in the game: side by side
+    case 2:
+      positions = [ [ 0, 0 ], [ width/2, 0 ] ];
+      break;
+    // three people in the game: top two side by side, bottom in center
+    case 2:
+      positions = [ [ 0, 0 ], [ width/2, 0 ], [ width/4, height/2 ] ];
+      break;
+    // four people in the game: top two side by side, bottom two side by side
+    case 2:
+      positions = [ [ 0, 0 ], [ width/2, 0 ], [ 0, height/2 ], [ width/2, height/2 ] ];
+      break;
+    // nobody joined; no positions
+    case 0:
+    default:
+      break;
+  }
+
+  for(var i = 0; i < names.length; i++) {
     var nameDiv = document.createElement('div');
     nameDiv.classList.add('name');
+    nameDiv.style.position.left = positions[i][0];
+    nameDiv.style.position.top = positions[i][1];
     nameDiv.appendChild(document.createTextNode(name || 'An unnamed driver'));
-    namesElement.appendChild(nameDiv);
+    document.querySelector('#names').appendChild(nameDiv);
   }
 
   // update cars and cameras

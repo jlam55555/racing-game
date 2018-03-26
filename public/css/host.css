@@ -5,13 +5,22 @@
   */
 
 /**
-  * Make body a flex element
+  * Make body a flex element for easy alignment of controls and canvas
   * @author Jonathan Lam
   */
 body {
   display: flex;
   flex-direction: column;
-  font-family: cousine, monospace;
+}
+
+/**
+  * General class for centered vertical align (used for controls)
+  * @author Jonathan Lam
+  */
+.vCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /**
@@ -23,11 +32,16 @@ body {
   display: flex;
   flex-direction: row;
   flex-basis: 4em;
+  background-color: black;
+  color: white;
 }
 #homeLink {
   flex-basis: 2em;
   font-size: 2em;
   padding: 0.5em;
+  transition: background-color 0.2s;
+}
+#homeLink:hover {
   background-color: darkgrey;
 }
 #gameIdContainer {
@@ -42,26 +56,15 @@ body {
   display: inline-block;
   margin: 0 0.125em;
   padding: 0.25em;
-  background-color: lightgrey;
-  border-radius: 0.125em;
-}
-.vCenter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-#names {
-  flex-basis: 50%;
-  display: flex;
-  flex-wrap: wrap;
+  width: 1.5em;
+  text-align: center;
   background-color: darkgrey;
-}
-.name {
-  flex-basis: 50%;
+  color: white;
+  border-radius: 0.125em;
 }
 
 /**
-  * styling the canvas
+  * styling the canvas and names
   * @author Rahul Kiefer
   */
 canvas {
@@ -72,4 +75,8 @@ canvas {
 #game {
   flex: 1 0 0;
   overflow: hidden;
+}
+.name {
+  position: relative;
+  display: block;
 }

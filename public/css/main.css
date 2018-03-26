@@ -15,13 +15,14 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 16px;
-  font-family: verdana, sans-serif;
+  font-family: cousine, monospace;
 }
 a, button, select, input {
   outline: none;
   border: none;
   font-size: inherit;
   font-family: inherit;
+  color: inherit;
 }
 button, input {
   border: none;
