@@ -401,31 +401,31 @@ function init() {
 
 
     // race track as a fat line
-    var trackPositions = [
-      (150,50),
-      (150,150),
-      (100,175),
-      (50,150),
-      (50,50),
-      (100,25),
-      (150,50)
-    ];
-
-    var trackGeo = new THREE.LineGeometry();
-
-    trackGeo.setPositions(trackPositions);
-
-    matLine = new THREE.LineMaterial( {
-      color: 0xffffff,
-      linewidth: 50, //in px
-      vertexColors: THREE.vertexColors,
-      dashed: false
-    } );
-
-    raceTrack = new THREE.Line2(trackGeo, matLine);
-    raceTrack.computeLineDistances();
-    raceTrack.scale.set(1, 1, 1);
-    scene.add(raceTrack);
+    // var trackPositions = [
+    //   (150,50),
+    //   (150,150),
+    //   (100,175),
+    //   (50,150),
+    //   (50,50),
+    //   (100,25),
+    //   (150,50)
+    // ];
+    //
+    // var trackGeo = new THREE.LineGeometry();
+    //
+    // trackGeo.setPositions(trackPositions);
+    //
+    // matLine = new THREE.LineMaterial( {
+    //   color: 0xffffff,
+    //   linewidth: 50, //in px
+    //   vertexColors: THREE.vertexColors,
+    //   dashed: false
+    // } );
+    //
+    // raceTrack = new THREE.Line2(trackGeo, matLine);
+    // raceTrack.computeLineDistances();
+    // raceTrack.scale.set(1, 1, 1);
+    // scene.add(raceTrack);
 
 
   /*
