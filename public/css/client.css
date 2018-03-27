@@ -1,5 +1,34 @@
 /**
   * Styling for the game client (driver)
   * Applies to game.html
-  * @todo make this only apply to client computer
   */
+
+/**
+  * Hide #names, #gameIdContainer (only necessary for host)
+  * @author Jonathan Lam
+  */
+#controls.mobile > #names,
+#controls.mobile > #gameIdContainer {
+  display: none;
+}
+
+/**
+  * Make back button smaller
+  * @author Jonathan Lam
+  */
+#controls.mobile {
+  flex: 0 0 0;
+}
+#controls.mobile > #homeLink {
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  font-size: 3em;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+#controls.mobile > #homeLink:active {
+  background-color: transparent;
+}

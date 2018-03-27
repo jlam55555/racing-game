@@ -103,9 +103,15 @@ socket.on('updateNames', names => {
   // update cars and cameras
   updateCars();
 
-  // if client overwrite main render function with client one
+  // if client
   if(isHost !== undefined && !isHost) {
+
+    // overwrite main render function with client one
     overwriteRender(socketId);
+
+    // add .mobile class to controls to transform it
+    document.querySelector('#controls').classList.add('mobile');
+
   }
 
 });
