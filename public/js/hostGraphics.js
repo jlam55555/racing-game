@@ -518,6 +518,32 @@ function init() {
   scene.add(raceTrackMesh);
 
   */
+
+  var track = new THREE.Shape();
+
+  track.moveTo(150,-2500);
+  track.lineTo(150,2500);
+
+  var trackExtrudeSettings = {
+    amount: 5,
+    bevelEnabled: false,
+    bevelSegments: 2,
+    steps: 1,
+    bevelSize: 1,
+    bevelThickness: 1
+  };
+
+  var trackTexture = new THREE.TextureLoader().load('/assets/blacktop_texture.jpg');
+  trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
+  trackTexture.repeat.set( 1, 1 );
+  var trackMaterial = new THREE.MeshBasicMaterial( {map: trackTexture, side: THREE.DoubleSide} );
+  var trackGeometry = new THREE.ExtrudeGeometry(track, trackExtrudeSettings);
+  var raceTrackMesh = new THREE.Mesh( trackGeometry, trackMaterial );
+
+  raceTrackMesh.rotation.x = Math.PI / 2;
+  raceTrackMesh.position.y = 0.01; //barely above the ground
+  scene.add(raceTrackMesh);
+
 }
 
 /**
