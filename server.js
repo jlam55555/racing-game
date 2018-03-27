@@ -113,22 +113,30 @@ io.on('connection', socket => {
     // delete room if host
     if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === true) {
       // delete room
-      var room = rooms[socket.handshake.session.gameId];
+      delete rooms[socket.handshake.session.gameId];
 
       // tell users to go away
       io.to(socket.handshake.session.gameId).emit('terminateGame');
     }
 
-    // delete person if client
-    if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === false) {
+    // delete person if client and if room exists
+    else if(socket.handshake.session.gameId !== undefined && socket.handshake.session.host === false) {
+
+      // only do if room exists (room may not exist because it is deleted when host leaves)
       var room = rooms[socket.handshake.session.gameId];
-      room.clients = room.clients.filter(client => client.socketId !== socket.id);
+      if(room !== undefined) {
 
-      // update room host
-      io.sockets.sockets[room.host.socketId].emit('updatedMap', room.clients);
+        // delete client from room
+        room.clients = room.clients.filter(client => client.socketId !== socket.id);
 
-      // update other users
-      io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
+        console.log(room, room.host, room.host.socketId);
+
+        // update room host
+        io.sockets.sockets[room.host.socketId].emit('updatedMap', room.clients);
+
+        // update other users
+        io.to(socket.handshake.session.gameId).emit('updateNames', room.clients.map(client => client.name));
+      }
     }
 
     // also remove from session
