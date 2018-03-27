@@ -129,8 +129,6 @@ io.on('connection', socket => {
         // delete client from room
         room.clients = room.clients.filter(client => client.socketId !== socket.id);
 
-        console.log(room, room.host, room.host.socketId);
-
         // update room host
         io.sockets.sockets[room.host.socketId].emit('updatedMap', room.clients);
 
@@ -290,7 +288,7 @@ app.get('/game/:gameId', (req, res, next) => {
       io.to(gameId).emit('updateNames', rooms[gameId].clients.map(client => client.name));
       console.log(`A user with socket id ${socket.id} has joined the room ${gameId}.`);
     }
-  }), 1000);
+  }), 50);
 });
 
 
