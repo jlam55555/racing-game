@@ -24,6 +24,12 @@
     <link rel='stylesheet' href='css/index.css'>
 
     <!--
+      include FontAwesome icon set (to make website look pretty)
+      @author Jonathan Lam
+      -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+
+    <!--
       include socket.io library
       @author Jonathan Lam
       -->
@@ -44,7 +50,9 @@
       -->
     <div class='deviceTypeContainer'>
       <div class='recommended' id='desktopRecommendation'>Recommended:</div>
-      <h1 class='deviceTypeHeader'>Are you a computer?</h1>
+      <div class='deviceTypeIcon'>
+        <i class='fas fa-desktop'></i>
+      </div>
       <button id='createGame'>Create new game</button>
     </div>
 
@@ -54,7 +62,9 @@
       -->
     <div class='deviceTypeContainer'>
       <div class='recommended' id='mobileRecommendation'>Recommended:</div>
-      <h1 class='deviceTypeHeader'>Are you a smartphone or tablet?</h1>
+      <div class='deviceTypeIcon'>
+        <i class='fas fa-phone'></i>
+      </div>
       <div id='joinGameContainer'>
         <input type='text' id='joinGameId' placeholder='Game ID'>
         <button id='joinGame'>Join</button>
