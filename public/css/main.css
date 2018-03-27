@@ -3,6 +3,11 @@
   * Applies to both index.html and game.html
   */
 
+/**
+  * Import source code pro monospace font for use
+  * @author Jonathan Lam
+  */
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
 
 /**
   * Set basic styles for all elements and html, body
@@ -15,7 +20,7 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 16px;
-  font-family: cousine, monospace;
+  font-family: source code pro, monospace;
 }
 a, button, select, input {
   outline: none;
