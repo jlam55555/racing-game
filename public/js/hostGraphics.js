@@ -25,7 +25,7 @@ function resizeHandler() {
   // update main camera aspect ratio and renderer size
   camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
   renderer.setSize(width, height);
-  
+
 }
 window.addEventListener('resize', resizeHandler);
 
@@ -306,8 +306,45 @@ function updateCars() {
   for(var i = 1; i < views.length; i++) {
     views[i].enabled = i < cars.length;
   }
-  // set view cameras appropriately to number of cars
-  // TODO: set these programatically
+
+  /**
+    * Set views appropriate to number of cars
+    * <p>
+    * One car or no cars: full screen             +---------+
+    *                                             |         |
+    *                                             |         |
+    *                                             |    1    |
+    *                                             |         |
+    *                                             |         |
+    *                                             +---------+
+    * <p>
+    * Two cars: half screen horizontally          +----+----+
+    *                                             |    |    |
+    *                                             |    |    |
+    *                                             | 1  | 2  |
+    *                                             |    |    |
+    *                                             |    |    |
+    *                                             +----+----+
+    * <p>
+    * Three cars: half screen top, bottom center  +----+----+
+    *                                             | 1  | 2  |
+    *                                             |    |    |
+    *                                             +--+-+-+--+
+    *                                             |  | 3 |  |
+    *                                             |  |   |  |
+    *                                             +--+---+--+
+    * <p>
+    * Four cars: 2 on top, two on bottom          +----+----+
+    *                                             | 1  | 2  |
+    *                                             |    |    |
+    *                                             +----+----+
+    *                                             | 3  | 4  |
+    *                                             |    |    |
+    *                                             +----+----+
+    * <p>
+    * This layout was designed to maximize screen usage, keep aspect ratio reasonable, and keep the same size/AR for all clients.
+    * @author Jonathan Lam
+    */
   switch(cars.length) {
     case 0:
     case 1:
