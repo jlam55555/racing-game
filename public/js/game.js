@@ -76,11 +76,11 @@ socket.on('updateNames', names => {
       positions = [ [ 0, 0 ], [ width/2, 0 ] ];
       break;
     // three people in the game: top two side by side, bottom in center
-    case 2:
+    case 3:
       positions = [ [ 0, 0 ], [ width/2, 0 ], [ width/4, height/2 ] ];
       break;
     // four people in the game: top two side by side, bottom two side by side
-    case 2:
+    case 4:
       positions = [ [ 0, 0 ], [ width/2, 0 ], [ 0, height/2 ], [ width/2, height/2 ] ];
       break;
     // nobody joined; no positions
