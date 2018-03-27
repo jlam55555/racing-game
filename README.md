@@ -11,9 +11,8 @@ Multiplayer racing game for AP CSP Create task
 - JavaScript (w/ three.js library)
 - CSS
 
-### Features for the Near Future (official todo)
-- Smartphone controls
-- Graphics (draw the car)
+### Features for the Near Future
+Moved to [todo][5]
 
 ### Timeline (screenshots)
 
@@ -37,3 +36,4 @@ New look for host and client (homepage is mostly the same).
 [2]: http://imgur.com/dQ6PAiXl.png
 [3]: http://imgur.com/anjllYil.png
 [4]: http://imgur.com/qOn2ztml.png
+[5]: https://github.com/jlam55555/racing-game/blob/master/todo.md
