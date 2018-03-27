@@ -27,5 +27,13 @@ Jazzed up the homepage styles.
 
 ![second day][2]
 
+##### 3/26/18
+New look for host and client (homepage is mostly the same).
+
+![updated host][3]
+![updated client][4]
+
 [1]: http://imgur.com/EEHYOzSl.png
 [2]: http://imgur.com/dQ6PAiXl.png
+[3]: http://imgur.com/anjllYil.png
+[4]: http://imgur.com/qOn2ztml.png
