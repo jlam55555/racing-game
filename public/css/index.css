@@ -10,6 +10,10 @@
 body {
   display: flex;
   flex-direction: row;
+  background-image: url('/assets/loading_bg.png');
+  background-position: center;
+  background-size: cover;
+  color: white;
 }
 .deviceTypeContainer {
   flex-grow: 1;
@@ -18,19 +22,27 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 3em;
+  font-size: 1.25em;
+  background-color: rgba(50, 50, 50, 0.8);
 }
 .deviceTypeIcon {
   font-size: 10em;
   text-align: center;
 }
-.deviceTypeContainer:nth-child(2) {
-  border-left: 5px solid black;
-}
 .deviceTypeHeader {
   text-align: center;
 }
-.recommended {
-  display: none;
+.deviceTypeContainer.recommended {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.deviceTypeContainer.recommended::before {
+  content: 'RECOMMENDED';
+  font-size: 2em;
+  margin-bottom: -1em;
+  text-align: center;
+  display: block;
+  position: relative;
+  top: -1em;
 }
 #joinGameContainer {
   display: flex;
@@ -41,4 +53,9 @@ body {
 }
 #joinGame {
   flex-grow: 1;
+}
+button, input {
+  background-color: #222;
+  border-radius: 0.25em;
+  cursor: pointer;
 }
