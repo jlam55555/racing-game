@@ -7,11 +7,27 @@
 
 /**
   * Use #game as base element
+  * width and height are global variables used for the width and height of the canvas, and are set in the resize handler
   * @author Jonathan Lam
   */
-var element = document.querySelector('#game');
-var width = element.getBoundingClientRect().width;
-var height = element.getBoundingClientRect().height;
+var element = document.querySelector('#game'), width, height;
+
+/**
+  * Event handler to update width and height on window resize (canvas resizes automatically). Also called in init() to initialize width and height.
+  * @author Jonathan Lam
+  */
+function resizeHandler() {
+
+  // update width and height
+  width = element.getBoundingClientRect().width;
+  height = element.getBoundingClientRect().height;
+
+  // update main camera aspect ratio and renderer size
+  camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  renderer.setSize(width, height);
+  
+}
+window.addEventListener('resize', resizeHandler);
 
 /**
   * Create scene and camera
@@ -331,8 +347,12 @@ function updateCars() {
   * @author Rahul Kiefer
   */
 function init() {
+
+  // initialize width and height
+  resizeHandler();
+
+  // create a camera for every view, using views array values
   for(var view of views) {
-    // create a camera for every view
     var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 20000);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
