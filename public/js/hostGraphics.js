@@ -228,11 +228,11 @@ var views = [
     top: 0,
     width: 0.5,
     height: 0.5,
-    position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM (for debug)
-    position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT  (for debug)
-    position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP    (for debug)
-    position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE   (for debug)
-    position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
+    // position: [3, -15, 1.5], rotation: [Math.PI/2, 0, 0], // BOTTOM (for debug)
+    // position: [-10, 1, 1.5], rotation: [0, -Math.PI/2, 0],// FRONT  (for debug)
+    // position: [3, 15, 1.5], rotation: [-Math.PI/2, 0, 0], // TOP    (for debug)
+    // position: [3, 1, 15], rotation: [0, 0, 0],            // SIDE   (for debug)
+    // position: [20, 1, 1.5], rotation: [0, Math.PI/2, 0],  // BACK   (for debug)
     position: [20, 3, 1.5], rotation: [0, Math.PI/2, 0],  // NORMAL (for prod)
     fov: 30,
     enabled: true
