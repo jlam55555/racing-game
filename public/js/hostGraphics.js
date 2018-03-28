@@ -214,7 +214,7 @@ function Car(id) {
 
 // initial car at 0,0 for testing and as a reference point
 // remove in production code
-var car = new Car();
+// var car = new Car();
 
 /**
   * Creating multiple views
