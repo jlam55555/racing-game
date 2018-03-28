@@ -523,6 +523,9 @@ function init() {
 
   track.moveTo(150,-2500);
   track.lineTo(150,2500);
+  track.lineTo(50,2500);
+  track.lineTo(50,-2500);
+  track.lineTo(150,-2500);
 
   var trackExtrudeSettings = {
     amount: 5,
