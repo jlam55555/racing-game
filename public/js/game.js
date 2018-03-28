@@ -135,7 +135,7 @@ window.addEventListener('deviceorientation', event => {
   if(isHost) return;
 
   // adjusting the 'no pedal' position from flat to 45 degrees
-  event.beta -= 45;
+  event.gamma -= 45;
 
   var forwardSpeed = 0, turnSpeed = 0;
   // device facing upwards
