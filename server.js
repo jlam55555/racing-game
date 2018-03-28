@@ -183,7 +183,7 @@ setInterval(() => {
       // calculated simulated friction and add to speed
       var friction = (Math.abs(client.speed) > highSpeedFrictionConstant * 1.5)
         ? (client.speed > 0 ? 1 : -1) * highSpeedFrictionConstant
-        : newSpeed * lowSpeedFrictionMultiplier;
+        : client.speed * lowSpeedFrictionMultiplier;
       client.speed += friction;
 
       // update player position (depends on heading)
