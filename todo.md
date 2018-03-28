@@ -6,10 +6,10 @@
 - figure out how to add texture to track (with trees in middle of loop)
 
 ## CURRENT
-- show something on homepage (e.g., graphic showing a simulation)
+- fix not joining room on create / enter correct id
+- refine deviceorientationevent (make more intuitive; calibration?)
 
 ## FIXES
-- refine deviceorientationevent (make more intuitive; calibration?)
 - refine acceleration and/or friction
 
 ## DONE
