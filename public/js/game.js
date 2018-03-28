@@ -40,9 +40,6 @@ socket.emit('isHost', (isHostResponse, socketIdResponse) => {
   if(!isHostResponse) {
 
     // ask for name, send to server
-    // dog names courtesy of https://www.care.com/c/stories/6095/101-real-and-funny-dog-names/
-    // var defaultNames = ["Bark Twain","Chewbarka","Doc McDoggins","Droolius Caesar","Franz Fur-dinand","Fyodor Dogstoevsky","Hairy Paw-ter","Jimmy Chew","Kareem Abdul Ja-Bark","Mary Puppins","The Notorious D.O.G.","Orville Redenbarker","Ozzy Pawsborne","Prince of Barkness","Salvador Dogi","Santa Paws","Sarah Jessica Barker","Sherlock Bones","Winnie the Poodle","Woofgang Puck","Dobby","Elmo","Frodo","Gollum","Khaleesi","Mister Miyagi","Pikachu","Pumba","Rocky","Yoda","Archie","Barney","Betty","Bernadette","Bob","Fergus","Gary","Kevin","Larry","Lloyd","Matilda","Olga","Pam","Rufus","Waldo","Attila","Baloo","Bruiser","Butterball","Chompers","Cujo","Hercules","Jabba","Moose","Rambo","Rex","Tank","Zeus","Binx","Bitsy","Demi","Hobbit","Munchkin","Nugget","Pee Wee","Peanut","Scrappy","Squeakers","Squirt","Toto","Twinkie","Alfalfa","Beans","Biscuit","Butters","Chalupa","Cheeseburger","Fluffernutter","Jellybean","Meatball","Nacho","Noodles","Salsa","Tater","Waffles","Alfred von Wigglebottom","Barkley","Captain Sniffer","Count Droolsbury","Deputy Dawg","Doodle","Lucky Goodsniffer","Miss Furbulous",
-    // "Mister Fluffers","Professor Wagglesworth","Putt-putt","Scooter","Sergeant Barkowitz","Sir Barks-a-Lot","Sir Waggington","Woofer\n "]
     var defaultNames = ["Richard","Rasmus","Tony","Aubrey","Don Juan","Graham","Dennis","George","Ted","Rufus","Rami","Willem","Peter","Zack","Oscar","Rick","Brandon","Charlie","Louie","Phil","Nigel","Earl","Jones","Carl","Jake","Richter","Russell",
                         "Corey","Alex","Ash","Mark","Irvin","Dallas\n "]
     var name = prompt('What is your name?', defaultNames[Math.floor(Math.random() * defaultNames.length)]);
