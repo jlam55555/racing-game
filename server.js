@@ -147,35 +147,44 @@ io.on('connection', socket => {
 
 
 /**
-  * Do game updates (position, speed, acceleration (friction), and heading (turn)) every 10ms. This happens here to ensure every person moves at the same speed.
-  * <p>
-  * The multipliers (below) are fine-tuned to make the game feel more realistic.
+  * Do game updates (position, speed, acceleration (friction), and heading
+  * (turn)) every 10ms. This happens here to ensure every person moves at the
+  * same speed. The friction is calculated as a piecewise function (linear
+  * decceleration at high speeds, and a decceleration proportional to the
+  * speed at low speeds) to make the driving feel more realistic. The constants
+  * and multipliers were determined by trial and error to make the driving
+  * feel realistic.
   * <p>
   * Equations:
-  * - Update acceleration: (simulated friction):  newAcceleration   = oldAcceleration - speed * frictionMultiplier
-  * - Update speed:                               newSpeed          = oldSpeed + acceleration * accelerationMultiplier
-  * - Update x position:                          newPlayerX        = oldPlayerX + Math.cos(heading) * speed * speedMultiplier
-  * - Update y position:                          newPlayerY        = oldPlayerY + Math.sin(heading) * speed * speedMultiplier
-  * - Update heading (direction):                 newPlayerHeading  = oldPlayerHeading + turnSpeed * speed * turnMultiplier
+  * - Update speed:                 newSpeed          = oldSpeed + acceleration * accelerationMultiplier - friction
+  * - Friction:                     friction          = { if |newSpeed| > frictionConstant * 1.5 then newSpeed > 0 ? -frictionConstant : frictionConstant
+  *                                                       if |newSpeed| < frictionConstant * 1.5 then newSpeed * 0.5
+  * - Update x position:            newPlayerX        = oldPlayerX + Math.cos(heading) * speed * speedMultiplier
+  * - Update y position:            newPlayerY        = oldPlayerY + Math.sin(heading) * speed * speedMultiplier
+  * - Update heading (direction):   newPlayerHeading  = oldPlayerHeading + turnSpeed * speed * turnMultiplier
   * @author Jonathan Lam
   */
 var accelerationMultiplier = 0.01;    // fraction of the input acceleration that goes into the accleration
-var frictionMultiplier = 0.01;        // fraction of the speed that the friction will go against
 var speedMultiplier = 0.005;          // fraction of the input speed that goes into the speed
 var turnMultiplier = 0.0002;          // fraction of the input turn that goes into the turn
+var highSpeedFrictionConstant = 2;    // linear decceleration of car at high speeds
+var lowSpeedFrictionMultiplier = 0.8; // fraction of the speed that the friction will go against
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
     for(var client of rooms[room].clients) {
-
-      // add simulated friction
-      client.acceleration -= client.speed * frictionMultiplier;
 
       // update player speed
       client.speed += client.acceleration * accelerationMultiplier;
       // bound player speed between -180 and +180
       if(client.speed < -90) client.speed = -90;
       if(client.speed > 90) client.speed = 90;
+
+      // calculated simulated friction and add to speed
+      var friction = (Math.abs(client.speed) > highSpeedFrictionConstant * 1.5)
+        ? (client.speed > 0 ? 1 : -1) * highSpeedFrictionConstant
+        : client.speed * lowSpeedFrictionMultiplier;
+      client.speed -= friction;
 
       // update player position (depends on heading)
       client.x += Math.cos(client.heading) * client.speed * speedMultiplier;

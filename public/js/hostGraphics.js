@@ -390,7 +390,7 @@ function init() {
 
   // create a camera for every view, using views array values
   for(var view of views) {
-    var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 20000);
+    var camera = new THREE.PerspectiveCamera(view.fov, width/height, 0.1, 7500);
     camera.position.fromArray(view.position);
     camera.rotation.fromArray(view.rotation);
     view.camera = camera;
@@ -444,7 +444,7 @@ function init() {
     */
   var floorTexture = new THREE.TextureLoader().load('/assets/grass_texture.jpg');
   floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-  floorTexture.repeat.set(1000, 1000);
+  floorTexture.repeat.set(50, 50);
   var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } ); //floor looks better as a MeshBasicMaterial
   var floorGeometry = new THREE.PlaneGeometry(5000, 5000, 10, 10); //floor is 5000x5000 to match skybox
   var floor = new THREE.Mesh(floorGeometry, floorMaterial);
