@@ -167,8 +167,8 @@ io.on('connection', socket => {
 var accelerationMultiplier = 0.01;    // fraction of the input acceleration that goes into the accleration
 var speedMultiplier = 0.005;          // fraction of the input speed that goes into the speed
 var turnMultiplier = 0.0002;          // fraction of the input turn that goes into the turn
-var highSpeedFrictionConstant = 1;    // linear decceleration of car at high speeds
-var lowSpeedFrictionMultiplier = 0.4; // fraction of the speed that the friction will go against
+var highSpeedFrictionConstant = 0.25;  // linear decceleration of car at high speeds
+var lowSpeedFrictionMultiplier = 0.1; // fraction of the speed that the friction will go against
 setInterval(() => {
   // update every game room
   for(var room of Object.keys(rooms)) {
