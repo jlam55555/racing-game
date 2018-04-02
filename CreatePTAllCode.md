@@ -1749,15 +1749,15 @@ Directory structure of necessary project files (* indicates a file/directory of 
 
 Assets:
 
-`public/map/map1.png` (UV map of car sides); author: Jonathan Lam
+`public/assets/map/map1.png` (UV map of car sides); author: Jonathan Lam
 
-![map of car sides](public/assets/map1.png)
+![map of car sides](public/assets/map/map1.png)
 
-`public/map/map2.png` (UV map of car top); author: Jonathan Lam
+`public/assets/map/map2.png` (UV map of car top); author: Jonathan Lam
 
-![map of car top](public/assets/map2.png)
+![map of car top](public/assets/map/map2.png)
 
-`public/map/blacktop_texture.jpg`; downloaded from Internet
+`public/assets/blacktop_texture.jpg`; downloaded from Internet
 
 ![blacktop texture](public/assets/blacktop_texture.jpg)
 
@@ -1770,10 +1770,10 @@ Assets:
 ![dawnmountain-zneg](public/assets/dawnmountain-zneg.png)
 ![dawnmountain-zpos](public/assets/dawnmountain-zpos.png)
 
-`public/map/grass_texture.jpg`; downloaded from Internet
+`public/assets/grass_texture.jpg`; downloaded from Internet
 
 ![grass texture](public/assets/grass_texture.jpg)
 
-`public/map/loading_bg.jpg`; author: Jonathan Lam
+`public/assets/loading_bg.jpg`; author: Jonathan Lam
 
-![homepage background](public/assets/loading_bg.jpg)
+![homepage background](public/assets/loading_bg.png)
