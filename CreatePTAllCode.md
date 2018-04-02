@@ -1,7 +1,5 @@
 All code (as of 4/1/18) in the racing-game project written by Jonathan Lam and/or Rahul Kiefer, compiled for use in the AP CSP Create PT.
 
-# TODO: add short descriptions for each file
-
 Directory structure of necessary project files (* indicates a file/directory of code that we did not write, and therefore did not include as one of the files below), in order of the included files below:
 
     - node_modules *
@@ -38,7 +36,7 @@ Directory structure of necessary project files (* indicates a file/directory of 
 
 ---
 
-`package.json` (necessary for Node.js); author: Jonathan Lam
+`package.json` (information necessary for Node.js); author: Jonathan Lam
 
 ```json
 {
@@ -66,7 +64,7 @@ Directory structure of necessary project files (* indicates a file/directory of 
 
 ---
 
-`Procfile` (necessary for Heroku hosting); author: Jonathan Lam
+`Procfile` (information necessary for Heroku hosting); author: Jonathan Lam
 
 ```
 web: node server.js
@@ -74,7 +72,7 @@ web: node server.js
 
 ---
 
-`server.js` (server file); author: Rahul Kiefer and Jonathan Lam
+`server.js` (server script; handles routing and socket.io); author: Rahul Kiefer and Jonathan Lam
 
 ```javascript
 /**
@@ -389,7 +387,7 @@ app.use(express.static('public'));
 
 ---
 
-`public/index.html`; author: Rahul Kiefer and Jonathan Lam
+`public/index.html` (HTML for landing page); author: Rahul Kiefer and Jonathan Lam
 
 ```html
 <!--
@@ -487,7 +485,7 @@ app.use(express.static('public'));
 
 ---
 
-`public/game.html`; author: Rahul Kiefer and Jonathan Lam
+`public/game.html` (HTML for gameplay page); author: Rahul Kiefer and Jonathan Lam
 
 ```html
 <!--
@@ -613,7 +611,7 @@ app.use(express.static('public'));
 
 ---
 
-`public/js/index.js`; author: Jonathan Lam
+`public/js/index.js` (script for landing page); author: Jonathan Lam
 
 ```javascript
 /**
@@ -680,7 +678,7 @@ else {
 
 ---
 
-`public/js/game.js`; author: Rahul Kiefer and Jonathan Lam
+`public/js/game.js` (script for gameplay, excluding graphics); author: Rahul Kiefer and Jonathan Lam
 
 ```javascript
 /**
@@ -856,7 +854,7 @@ socket.on('updatedMap', mapData => {
 
 ---
 
-`public/hostGraphics.js`; author: Rahul Kiefer and Jonathan Lam
+`public/hostGraphics.js` (main graphics file, graphics for computer screen (host)); author: Rahul Kiefer and Jonathan Lam
 
 ```javascript
 /**
@@ -1475,7 +1473,7 @@ animate();
 
 ---
 
-`public/graphics/clientGraphics.js`; author: Rahul Kiefer and Jonathan Lam
+`public/graphics/clientGraphics.js` (secondary graphics file for mobile screen (client)); author: Rahul Kiefer and Jonathan Lam
 
 ```javascript
 /**
@@ -1517,7 +1515,7 @@ function overwriteRender(id) {
 
 ---
 
-`public/css/main.css`; author: Jonathan Lam
+`public/css/main.css` (global CSS rules); author: Jonathan Lam
 
 ```css
 /**
@@ -1562,7 +1560,7 @@ input {
 
 ---
 
-`public/css/index.css`; author: Jonathan Lam
+`public/css/index.css` (CSS rules for landing page); author: Jonathan Lam
 
 ```css
 /**
@@ -1638,7 +1636,7 @@ button, input {
 
 ---
 
-`public/css/host.css`: author: Jonathan Lam
+`public/css/host.css` (CSS rules for host in gameplay): author: Rahul Kiefer and Jonathan Lam
 
 ```css
 /**
@@ -1734,7 +1732,7 @@ canvas {
 
 ---
 
-`public/css/client.css`; author: Jonathan Lam
+`public/css/client.css` (CSS rules for client in gameplay); author: Jonathan Lam
 
 ```css
 /**
