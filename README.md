@@ -2,8 +2,8 @@
 Multiplayer racing game for AP CSP Create task. This README page is hosted online at https://jlam55555.github.io/racing-game, and the game is hosted online at https://racing-game-csp.herokuapp.com.
 
 ### Links
-[todo][5]
-[all code (for AP CSP Create PT)][6]
+- [todo][5]
+- [all code (for AP CSP Create PT)][6]
 
 ### Current Features
 - Rooms w/ socket.io for local games
@@ -40,5 +40,5 @@ New look for host and client (homepage is mostly the same).
 [2]: http://imgur.com/dQ6PAiXl.png
 [3]: http://imgur.com/anjllYil.png
 [4]: http://imgur.com/qOn2ztml.png
-[5]: /todo
-[6]: /CreatePTAllCode
+[5]: /racing-game/todo
+[6]: /racing-game/CreatePTAllCode
