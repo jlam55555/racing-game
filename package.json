@@ -1,6 +1,6 @@
 {
   "name": "racing-game",
-  "description": "Multiplayer racing game for AP CSP Create task",
+  "description": "Multiplayer racing game for AP CSP Create task. Hosted online at https://racing-game-csp.herokuapp.com with Heroku hosting.",
   "contributors": [
     "Jonathan Lam <jonathan.lam@er9.org> (http://jonathanlam.tech)",
     "Rahul Kiefer <rahul.kiefer@er9.org>"
