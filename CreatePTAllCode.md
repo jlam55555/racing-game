@@ -33,6 +33,8 @@ Directory structure of necessary project files (* indicates a file/directory of 
             - dawnmountain-ypos.png
             - dawnmountain-zneg.png
             - dawnmountain-zpos.png
+            - grass_texture.jpg
+            - loading_bg.png
 
 ---
 
