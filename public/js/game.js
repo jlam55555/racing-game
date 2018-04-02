@@ -1,5 +1,5 @@
 /**
-  * This file is for the game.
+  * This file is for the game (excluding graphics).
   */
 
 
