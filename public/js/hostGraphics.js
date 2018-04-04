@@ -547,6 +547,9 @@ function init() {
   raceTrackMesh.position.y = 0.01; //barely above the ground
   scene.add(raceTrackMesh);
 
+  // update views and cars array
+  updateCars();
+
 }
 
 /**
